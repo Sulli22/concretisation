@@ -86,7 +86,7 @@ def get_dict_links(dict_int):
         dict whose keys are integers and whose values are the corresponding colors (str)
     """
     dict_links = {}
-    int_F = dict_int['F']; int_V = dict_int['V']; int_N = dict_int['N']
+    int_F = dict_int['F']; int_V = dict_int['T']; int_N = dict_int['N']
     dict_links[int_F] = 'red'; dict_links[int_V] = 'green'; dict_links[int_N] = 'blue'
     return dict_links
     
@@ -153,8 +153,8 @@ def get_dict_bin_vars(dict_colors):
     """
     return {node: dict_colors[node] == 'green' for node in dict_colors.keys() if is_a_var(node)}
 
-def graph_3_coloring(G, nb_vars: int, with_draw=True) -> tuple:
-    """ returns a tuple of solutions deduced from the coloring and draws the graph 
+def graph_3_coloring(G, nb_vars: int, with_draw=True) -> list:
+    """ returns a list of solutions deduced from the coloring and draws the graph 
     if possible and desired
 
     Parameters
@@ -168,23 +168,23 @@ def graph_3_coloring(G, nb_vars: int, with_draw=True) -> tuple:
     
     Returns
     --------
-    res_tuple: tuple
-        tuple having as first element a boolean corresponding to the success of 3-coloring, 
+    res_list: list
+        list having as first element a boolean corresponding to the success of 3-coloring, 
         as second a dictation associating variables (str) and their values (bool) 
         (empty if no 3-coloring), and as third a boolean corresponding to drawing execution
     """
-    res_tuple = (False, {}, False)
+    res_list = [False, {}, False]
     dict_coloring_int = nx.greedy_color(G, 'DSATUR')
     if 3 not in dict_coloring_int.values():
         dict_links = get_dict_links(dict_coloring_int)
         dict_colors = get_dict_colors(dict_coloring_int, dict_links)
-        res_tuple[0] = True
-        res_tuple[1] = get_dict_bin_vars(dict_colors)
+        res_list[0] = True
+        res_list[1] = get_dict_bin_vars(dict_colors)
         if with_draw:  
-            res_tuple[2] = True
+            res_list[2] = True
             list_colors = get_list_colors(G, dict_colors)
             nx.draw_networkx(G, node_color = list_colors)   # Draw graph
-    return res_tuple
+    return res_list
 
 
 #### Main Program
@@ -195,7 +195,7 @@ nb_vars = 3
 
 G = get_graph_from_cnf(list_cnf_formula, nb_vars)
 solv_list = graph_3_coloring(G, nb_vars)
-print(solv_list)
+print(solv_list[:2])
 
 if solv_list[2]:
     plt.show()                                      # ShowFigure
