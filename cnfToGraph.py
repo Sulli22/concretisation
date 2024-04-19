@@ -28,6 +28,29 @@ def get_graph_base(nb_var):
         G.add_edges_from([(str(i), str(-i)), (str(i), 'N'), (str(-i), 'N')])
     return G
 
+# Retrieving a list of values from the CNF file
+def read(fic): # Sullivan
+    with open(fic,"r") as f:
+        lines = f.readlines()  
+    val=[]
+    for line in lines:
+        if not line.startswith('c') and not line.startswith('p') and not line.startswith('%'):
+            nums = (int(x) for x in line.split() if x!= "0")
+            val.extend(nums)
+    return val
+
+# CNF list in 3-uplets
+def arrangement_3(fic): # Sullivan
+    list_decomp = []
+    val = read(fic)
+    for i in range(0,len(read(fic)),3):
+        list_decomp.append([val[i],val[i+1],val[i+2]])
+    return list_decomp
+
+def list_clauses(fic): #Sullivan
+    read(fic)
+    return arrangement_3(fic)
+    
 def add_clause(G, clause_nb, x1, x2, x3) :
     """ adds a disjunction clause with input variables x1, x2 and x3 to the graph 
 
@@ -189,9 +212,8 @@ def graph_3_coloring(G, nb_vars: int, with_draw=True) -> list:
 
 #### Main Program
 
-list_cnf_formula = [('1', '2', '3'),
-                    ('1', '-2', '-3')]
-nb_vars = 3
+list_cnf_formula = list_clauses("clause.cnf") # Sullivan
+nb_vars = len(list_cnf_formula)*3 # Sullivan
 
 G = get_graph_from_cnf(list_cnf_formula, nb_vars)
 solv_list = graph_3_coloring(G, nb_vars)
