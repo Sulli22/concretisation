@@ -3,8 +3,10 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 from pysat.formula import CNF
+from pysat.solvers import Solver
 
-current_path = '/home/mashu/Documents/concretisation/'
+current_path = ''
+#current_path = '/home/mashu/Documents/concretisation/'
 plt.figure(figsize = (15, 15))
 
 #### Functions
@@ -18,6 +20,8 @@ def get_graph_base(pos: dict, nb_var: int):
     -----------
     nb_var: int
         number of variables required
+    pos: dict
+        dict that associates nodes to their position
     
     Returns
     --------
@@ -46,6 +50,8 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int) :
         clause number in the cnf formula
     x1, x2, x3 : int
         clause input variable names
+    pos: dict
+        dict that associates nodes to their position
     """
     # set names and positions
     N_x1 = f"N_{x1}_{clause_nb}"; 
@@ -169,10 +175,11 @@ def is_a_var(name: str) -> bool:
     unamed: bool
         True if node is a variable else False
     """
-    return name[0] not in ['T', 'F', 'N', 'd', '-'] # non-variable nodes begin with these characters
+    return name[0] not in ['T', 'F', 'N', 'd', '-'] 
+                        # non-variable nodes begin with these characters
 
 
-def get_dict_bin_vars(dict_colors: dict):
+def get_model(dict_colors: dict):
     """ returns a dict that associate variable nodes and boolean values 
     according to their color
 
@@ -186,8 +193,11 @@ def get_dict_bin_vars(dict_colors: dict):
     unamed: dict
         dict with variable nodes (str) as keys and booleans as values
     """
-    return {node: dict_colors[node] == 'green' for node in dict_colors.keys() 
-            if is_a_var(node)}
+    list_model = []
+    for node in dict_colors.keys():
+        if is_a_var(node):
+            list_model.append(int(node) if dict_colors[node] == 'green' else -int(node)) 
+    return sorted(list_model, key = lambda i: abs(i))
 
 
 def graph_3_coloring(G, nb_clauses: int) -> list:
@@ -206,32 +216,46 @@ def graph_3_coloring(G, nb_clauses: int) -> list:
     unamed: list
         list having as first element res_list (list) descirbe by
             list having as first element a boolean corresponding to the success 
-            of 3-coloring, as second a dictation associating variables (str) 
-            and their values (bool) (empty if no 3-coloring), and as third a 
-            boolean corresponding to drawing execution
-        and dict_coloring_int (dict) as second element
+            of 3-coloring and as second a list of the model (empty if no 
+            3-coloring)
+        and k (int) - coloring
     """
-    res_list = [False, {}, False]
+    res_list = [False, []]
     dict_coloring_int = nx.greedy_color(G, 'DSATUR')
-    #if 3 not in dict_coloring_int.values():
     dict_links = get_dict_links(dict_coloring_int)
     dict_colors = get_dict_colors(dict_coloring_int, dict_links)
-    res_list[0] = True
-    res_list[1] = get_dict_bin_vars(dict_colors)
-    if nb_clauses <= 3:  
-        res_list[2] = True
-        list_colors = get_list_colors(G, dict_colors)
-        nx.draw_networkx(G, node_color = list_colors, pos = pos)   # Draw graph
-    return res_list, dict_coloring_int
+    if 3 not in dict_coloring_int.values():
+        res_list[0] = True
+        res_list[1] = get_model(dict_colors)
+    #if nb_clauses <= 3:  
+    #res_list[2] = True
+    list_colors = get_list_colors(G, dict_colors)
+    nx.draw_networkx(G, node_color = list_colors, pos = pos)   # Draw graph
+    return res_list, len(set(dict_coloring_int.values()))
 
 #### Main Program
 
 cnf_formula = CNF(from_file=current_path+'simple_formula.cnf')
 
+print("solv by pysat solver :")
+
+with Solver(bootstrap_with=cnf_formula) as solver:
+    # call the solver for this formula:
+    print('\tformula is', f'{"s" if solver.solve() else "uns"}atisfiable')
+    
+    # the formula is satisfiable :
+    print('\tand the model is:', solver.get_model())
+
+    # the formula is unsatisfiable :
+    print('\tand the unsatisfiable core is:', solver.get_core())
+
+print("solv by graph :")
+
 G, pos = get_graph_from_cnf(cnf_formula)
 solv_list = graph_3_coloring(G, len(cnf_formula.clauses))
-print("dict_coloring :", solv_list[1])
-print("solv by graph :", solv_list[0][:2])
 
-if solv_list[0][2]:
-    plt.show()                                      # ShowFigure
+print(f"\tformula is {"s" if solv_list[1] <= 3 else "uns"}atisfiable ({solv_list[1]}-coloring)")
+print('\t', solv_list[0][1])
+
+#if solv_list[0][2]:
+plt.show()                                      # ShowFigure
