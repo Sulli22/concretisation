@@ -21,7 +21,52 @@
         </div>
     </nav>
     <main>
-        main
+        <p>
+            Formules booléennes et coloration de graphes
+            L'objectif de ce projet est de résoudre des formules booléennes, par exemple (a ou b ou c) et
+            (non a ou non c), en utilisant la coloration d'un graphe. Nous commencerons par des formules
+            simples puis l'objectif sera de transformer une formule booléenne plus complexe (exprimée
+            sous une certaine forme standard) en un graphe. La coloration de ce graphe nous permettra
+            de montrer si cette formule est vraie ou fausse en fonction des valeurs de ses variables.
+            La première étape consistera à étudier la manière de coder par un graphe l'opérateur logique
+            OU. Ce composant de base pourra nous servir à résoudre par exemple des formules de la
+            forme (a ou b ou c).
+        </p>
+        <p>
+            La deuxième étape consistera à étudier le problème de satisfiabilité en logique propositionnelle
+            (SAT), qui est l'un des problèmes de référence en informatique. Les formules considérées sont
+            des conjonction (et) de disjonction (ou). Par exemple : (a ou b ou non(c)) et (non(a) ou non(b)
+            ou c).
+        </p>
+        <p>
+            Cette formule peut être rendue vraie (par exemple si a est faux, b est vrai et c est faux).
+            En partant de la première étape, on trouvera un moyen de transformer une formule en un
+            graphe, tel que si l'on trouve une 3-coloration propre du graphe, la formule est vraie.
+            La troisième étape consistera à utiliser également pycsp3 pour résoudre les formules, via
+            différents codages et trouver des colorations des graphes. Ceci constituera une autre
+            approche de résolution du problème.
+        </p>
+        <p>
+            Pour information : positionnement scientifique du projet
+        </p>
+        <p>
+            Le domaine de la complexité algorithme a toujours suscité un engouement de la part des
+            chercheurs, notamment pour essayer d'identifier les problèmes dont la complexité est élevée
+            (intuitivement dont le temps de résolution va augmenter de manière exponentielle en fonction
+            de la taille des données du problème). En particulier, une question ouverte reste de savoir si
+            les problèmes considérés actuellement comme très difficiles pourraient être résolus par des
+            algorithmes dont le temps de calcul croîtrait de manière seulement polynomiale. La résolution
+            du challenge P=NP, encore ouvert, donne lieu à un prix d'un million de dollars.
+            Ce sujet va vous permettre d'aborder, de manière ludique, ce domaine de la complexité. En
+            effet, si nous arrivons à transformer toute formule booléenne (écrite sous une forme normale
+            simple) en un problème de coloration à trois couleurs, nous aurons alors prouvé que résoudre
+            le problème de coloration est aussi difficile que déterminer si la formule est vraie. Le problème
+            SAT est connu pour être la référence des problèmes difficiles (NP-complets).
+        </p>
+        <p>
+            https://fr.wikipedia.org/wiki/Problème_SAT
+            https://fr.wikipedia.org/wiki/Théorème_de_Cook
+        </p>
     </main>
     <footer>
         <p>copyright ©2024</p>

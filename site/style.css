@@ -8,6 +8,8 @@
     --nav_height: 60px;
     --footer_height: 100px;
 
+    --main_padding_w: calc(100vw/8);
+
     --font_size_nav: 15pt;
 }
 
@@ -82,6 +84,11 @@ nav #box_links a:hover::after {
 
 main {
     background-color: var(--color_1);
+    padding: 0 var(--main_padding_w) 0 var(--main_padding_w);
+}
+
+main p {
+    margin: 0px;
 }
 
 /*----------------------------------------*/
@@ -91,6 +98,8 @@ footer {
     color: var(--color_1);
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: var(--footer_height);
 }
 
 footer p {
