@@ -1,16 +1,21 @@
 :root{
-    --color_1: #f0ebd8;
+    --color_1: #f8f5ea;
     --color_2: #778da9;
     --color_3: #415a77;
     --color_4: #1b263b;
     --color_5: #0d1b2a;
 
+    --header_height: 30px;
     --nav_height: 60px;
-    --footer_height: 100px;
+    --footer_height: 200px;
+
+    --font_size_nav: 1.3em;
+    --heigth_logo_nav: calc(var(--nav_height)*0.8);
+    --margin_box_link: calc(100vw/8 - var(--heigth_logo_nav));
 
     --main_padding_w: calc(100vw/8);
+    --main_padding_h: 70px;
 
-    --font_size_nav: 15pt;
 }
 
 /*----------------------------------------*/
@@ -24,16 +29,24 @@ a {
     text-decoration: none;
 }
 
-#sep60{
-    width: 60px;
-}
-
 /*----------------------------------------*/
 
 header {
     margin: 0;
     background-color: var(--color_3);
+    height: var(--header_height);
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
+
+header a {
+    margin-right: 10px;
+    color: var(--color_5);
+}
+
+/*----------------------------------------*/
+
 
 nav {
     margin: 0;
@@ -44,22 +57,33 @@ nav {
     height: var(--nav_height);
 }
 
-nav a h1 {
+nav #home_link {
+    margin-left: var(--main_padding_w);
+    display: flex;
+    align-items: center;
+}
+
+nav #home_link #house_icon {
+    margin-right: 10px;
+    font-size: calc(var(--font_size_nav)*1.5);
+    color: var(--color_5);
+}
+
+nav #home_link h1 {
     font-size: var(--font_size_nav);
     margin: 0;
-    color: var(--color_5);
-    margin-left: calc(100vw/5);
+    color: var(--color_4);
 }
 
 nav #box_links {
-    margin-right: calc(100vw/5);
     display: flex;
 }
 
 nav #box_links a {
     font-size: var(--font_size_nav);
-    color: var(--color_5);
+    color: var(--color_4);
     position: relative;
+    padding-bottom: 2px;
 }
 
 nav #box_links a::after {
@@ -73,6 +97,7 @@ nav #box_links a::after {
     background-color: var(--color_5);
     transform-origin: bottom right;
     transition: transform 0.4s ease-out;
+    color: var(--color_4);
 }
 
 nav #box_links a:hover::after {
@@ -80,15 +105,38 @@ nav #box_links a:hover::after {
     transform-origin: bottom left;
 }
 
+
+nav #sep_nav{
+    width: calc(100vw*0.05);
+}
+
+nav #logo_nav {
+    height: var(--heigth_logo_nav);
+    margin: 0 10px;
+}
+
+@media screen and (max-width: 700px) {
+    nav a h1 {
+        display: none;
+    }
+  }
+
 /*----------------------------------------*/
 
 main {
     background-color: var(--color_1);
-    padding: 0 var(--main_padding_w) 0 var(--main_padding_w);
+    padding: var(--main_padding_h) var(--main_padding_w);
 }
 
 main p {
     margin: 0px;
+    color: var(--color_5);
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+main p a {
+    color: var(--color_5);
 }
 
 /*----------------------------------------*/
@@ -97,9 +145,15 @@ footer {
     background-color: var(--color_4);
     color: var(--color_1);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: var(--footer_height);
+}
+
+footer a #github {
+    height: calc(var(--footer_height)/3);
+    margin: 20px;
 }
 
 footer p {
