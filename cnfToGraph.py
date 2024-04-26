@@ -197,7 +197,8 @@ def get_model(dict_colors: dict):
     list_model = []
     for node in dict_colors.keys():
         if is_a_positive_literal(node):
-            list_model.append(int(node) if dict_colors[node] == 'green' else -int(node)) 
+            list_model.append(int(node) if dict_colors[node] == 'green'
+                                else -int(node)) 
     return sorted(list_model, key = lambda i: abs(i))
 
 def graph_3_coloring(G, nb_clauses: int) -> list:
@@ -233,7 +234,7 @@ def graph_3_coloring(G, nb_clauses: int) -> list:
 
 #### Main Program
 
-cnf_formula = CNF(from_file='simple_formula.cnf')
+cnf_formula = CNF(from_file='formula.cnf')
 
 print("solv by pysat solver :")
 
