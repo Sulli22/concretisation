@@ -1,7 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import itertools
-from collections import defaultdict, deque
 
 G = nx.Graph()
 G.add_nodes_from([1,2,3,4,5,6,7,8,9])
@@ -33,14 +32,14 @@ def DSATUR(G, colors):
                 raise nx.NetworkXError("Neighboring nodes must have different colors")
    
     """
-    # If 0 nodes have been colored, simply choose the node of highest degree.
+    # If there is no colors in the dict "colors"
     if not colors:
-        node = max(G, key=G.degree)
-        yield node 
-        # Add the color 0 to the distinct colors set for each
-        # neighbor of that node.
+        node = max(G, key=G.degree) # Take the node with the max degree
+        yield node # Like a return but that don't stop 
         
-        for v in G[node]:
+        # Add the color 0 to the distinct colors set for each
+        # neighbor of that node.If 0 nodes have been colored, simply choose the node of highest degree.
+        for v in G[node]: # G[node] is for the neighbors of node between []
             distinct_colors[v].add(0)
 
     while len(G) != len(colors):
@@ -67,13 +66,11 @@ def greedy_color(G):
     
     for u in nodes:
         # Set to keep track of colors of neighbors
-        
-       
-        nbr_colors = {colors[v] for v in G[u] if v in colors}
+        num_colors = {colors[v] for v in G[u] if v in colors}
         
         # Find the first unused color.
         for color in itertools.count():
-            if color not in nbr_colors:
+            if color not in num_colors:
                 break
         # Assign the new color to the current node.
         colors[u] = color
