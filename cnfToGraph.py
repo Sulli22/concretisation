@@ -100,30 +100,26 @@ def get_graph_from_cnf(cnf_formula) -> tuple:
 ### Coloring
 
 def get_list_DSATUR(G, colors: dict):
-    """Iterates over all the nodes of ``G`` in "saturation order" (also
-    known as "DSATUR").
+    """Iterates over all the nodes of G in "saturation order" ("DSATUR").
 
-    ``G`` is a NetworkX graph. ``colors`` is a dictionary mapping nodes of
-    ``G`` to colors, for those nodes that have already been colored.
+    Parameters
+    -----------
+    G: NetworkX graph
+        graph we want to have the saturation order
+    colors: dict
+        dict associates nodes of G to colors, for those nodes that have 
+        already been colored
 
+    Returns
+    --------
+    unamed: generator object
     """
     distinct_colors = {v: set() for v in G} # neighbors colors for each nodes
     # Add the node color assignments given in colors to the
     # distinct colors set for each neighbor of that node
-
     for node, color in colors.items():
-        for neighbor in G[node]:
+        for neighbor in G[node]: # G[node] is for the neighbors of the node
             distinct_colors[neighbor].add(color)
-            
-    # If there is no colors in the dict "colors"
-    if not colors:
-        node = max(G, key=G.degree) # Take the node with the max degree
-        yield node # Like a return but that don't stop 
-        
-        # Add the color 0 to the distinct colors set for each
-        # neighbor of that node.If 0 nodes have been colored, simply choose the node of highest degree.
-        for v in G[node]: # G[node] is for the neighbors of the node
-            distinct_colors[v].add(0)
 
     while len(G) != len(colors):
         # Update the distinct color sets for the neighbors.
@@ -137,21 +133,34 @@ def get_list_DSATUR(G, colors: dict):
         yield node
 
 def get_dict_coloring(G, colors: dict):
-    """
+    """ returns a dict that associates nodes to colors
+    
+    Parameters
+    -----------
+    G: Networkx graph
+        graph that we want to color
+    colors: dict
+        dict associates nodes of G to colors, for those nodes that have 
+        already been colored
+        
+    Returns
+    --------
+    colors: dict
+        same dict but associate all nodes (str) to colors (str)
     """
 
     if len(G) == 0:
         return {}
     
-    nodes = get_list_DSATUR(G, colors) # nodes of ``G`` in "saturation order"
+    nodes = get_list_DSATUR(G, colors) # nodes of G in "saturation order"
     
     for u in nodes:
         # Set to keep track of colors of neighbors
-        num_colors = {colors[v] for v in G[u] if v in colors}
+        names_colors = {colors[v] for v in G[u] if v in colors}
         
         # Find the first unused color
         for color in ['red', 'green', 'blue', 'grey']:
-            if color not in num_colors:
+            if color not in names_colors:
                 break
         # Assign the new color to the current node
         colors[u] = color
@@ -214,38 +223,35 @@ def graph_coloring(G, pos: dict, model: list) -> list:
     """
     colors = {'N': 'blue', 'F': 'red', 'T': 'green'}
     add_colors_from_model(colors, model)
-    dict_colors = get_dict_coloring(G, colors)    # coloring graph
+    dict_colors = get_dict_coloring(G, colors)    
     list_colors = get_list_colors(G, dict_colors)
     nx.draw_networkx(G, node_color = list_colors, pos = pos)   # Draw graph
     return dict_colors, len(set(dict_colors.values()))
 
 #### Main Program
 
-def main():
-    cnf_formula = CNF(from_file='formula.cnf')
+cnf_formula = CNF(from_file='formula.cnf')
 
-    print("solv by pysat solver :")
+print("solv by pysat solver :")
 
-    with Solver(bootstrap_with=cnf_formula) as solver:
-        # call the solver for this formula :
-        is_satisfiable = solver.solve()
-        print('\tformula is', f'{"s" if is_satisfiable else "uns"}atisfiable')
+with Solver(bootstrap_with=cnf_formula) as solver:
+    # call the solver for this formula :
+    is_satisfiable = solver.solve()
+    print('\tformula is', f'{"s" if is_satisfiable else "uns"}atisfiable')
         
-        # the formula is satisfiable :
-        model = solver.get_model()
-        print('\tand the model is:', model)
+    # the formula is satisfiable :
+    model = solver.get_model()
+    print('\tand the model is:', model)
 
-        # the formula is unsatisfiable :
-        print('\tand the unsatisfiable core is:', solver.get_core())
+    # the formula is unsatisfiable :
+    print('\tand the unsatisfiable core is:', solver.get_core())
 
-    if is_satisfiable:
-        print("graph coloring corresponding:")
+if is_satisfiable:
+    print("graph coloring corresponding:")
 
-        G, pos = get_graph_from_cnf(cnf_formula)
-        dict, k = graph_coloring(G, pos, model)
+    G, pos = get_graph_from_cnf(cnf_formula)
+    dict, k = graph_coloring(G, pos, model)
 
-        print(f"\tdict coloring: {dict}")
-        print(f"\t-> {k}-coloring")
-        plt.show()                                      # ShowFigure
-
-main()
+    #print(f"\tdict coloring: {dict}")
+    print(f"\t-> {k}-coloring")
+    plt.show()                                      # ShowFigure
