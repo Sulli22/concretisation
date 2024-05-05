@@ -1,4 +1,4 @@
-##### imports
+#### imports
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
@@ -126,8 +126,10 @@ def get_list_DSATUR(G, colors: dict):
         for node, color in colors.items():
             for neighbor in G[node]:
                 distinct_colors[neighbor].add(color)
-        # Compute the maximum saturation and the set of nodes that achieve that saturation
-        saturation = {v: len(c) for v, c in distinct_colors.items() if v not in colors}
+        # Compute the maximum saturation 
+        # and the set of nodes that achieve that saturation
+        saturation = {v: len(c) for v, c in distinct_colors.items() \
+                                                            if v not in colors}
         # Yield the node with the highest saturation, and break ties by degree
         node = max(saturation, key=lambda v: (saturation[v], G.degree(v)))
         yield node
@@ -181,7 +183,7 @@ def get_list_colors(G, dict_colors: dict) -> list:
     unamed: list
         list of colors (str)
     """
-    return [dict_colors[node] for node in G.nodes()]
+    return [dict_colors[node] for node in G.nodes]
 
 def add_colors_from_model(colors: dict, model: list):
     """ add colors from model (list) in colors dict
@@ -218,8 +220,8 @@ def graph_coloring(G, pos: dict, model: list) -> list:
     Returns
     --------
     unamed: tuple
-        tuple having as first element a dict that associate node and color (str)
-        and as second element k (int) - coloring corresponding
+        tuple having as first element a dict that associate node (str) to 
+        color (str) and as second element k (int) - coloring corresponding
     """
     colors = {'N': 'blue', 'F': 'red', 'T': 'green'}
     add_colors_from_model(colors, model)
