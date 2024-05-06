@@ -35,8 +35,8 @@ def get_graph_base(pos: dict, nb_var: int):
     pos['N'] = np.array([1, 3])     #/
     for i in range(1, nb_var+1):        # adds nodes/edges and literals pos
         G.add_edges_from([(str(i), str(-i)), (str(i), 'N'), (str(-i), 'N')])
-        pos[str(i)] = np.array([(i-1)*2, 2])
-        pos[str(-i)] = np.array([(i-1)*2+1, 2])
+        pos[str(i)] = np.array([(i-1)*7, 2])
+        pos[str(-i)] = np.array([(i-1)*7+2, 2])
     return G
     
 def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
@@ -56,17 +56,17 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
     # sets names
     N_x1 = f"N_{x1}_{clause_nb}"
     N_x2 = f"N_{x2}_{clause_nb}"
-    dij_x1x2 = f"dij_{x1}{x2}_{clause_nb}"
-    N_x1x2 = f"N_{x1}{x2}_{clause_nb}"
+    dij_x1x2 = f"{x1}∨{x2}_{clause_nb}"
+    N_x1x2 = f"N_{x1}∨{x2}_{clause_nb}"
     N_x3 = f"N_{x3}_{clause_nb}"
-    dij_x1x2x3 = f"dij_{x1}{x2}{x3}_{clause_nb}"
+    dij_x1x2x3 = f"{x1}∨{x2}∨{x3}_{clause_nb}"
     # sets pos
-    pos[dij_x1x2] = np.array([(clause_nb-1)*2+0.5, -2])
-    pos[N_x1x2] = np.array([(clause_nb-1)*2+0.5, -3])
-    pos[N_x1] = np.array([(clause_nb-1)*2, 0])
-    pos[N_x2] = np.array([(clause_nb-1)*2+1, 0])
-    pos[N_x3] = np.array([(clause_nb-1)*2+1.5, -3])
-    pos[dij_x1x2x3] = np.array([(clause_nb-1)*2+1, -5])
+    pos[dij_x1x2] = np.array([(clause_nb-1)*4+0.5, -2])
+    pos[N_x1x2] = np.array([(clause_nb-1)*4+0.5, -3])
+    pos[N_x1] = np.array([(clause_nb-1)*4, 0])
+    pos[N_x2] = np.array([(clause_nb-1)*4+1, 0])
+    pos[N_x3] = np.array([(clause_nb-1)*4+1.5, -3])
+    pos[dij_x1x2x3] = np.array([(clause_nb-1)*4+1, -5])
     # adds edges and nodes
     G.add_edges_from([(str(x1), N_x1), (str(x2), N_x2), (N_x1, N_x2), 
                       (N_x1, dij_x1x2), (N_x2, dij_x1x2), (dij_x1x2, N_x1x2), 
@@ -91,7 +91,7 @@ def get_graph_from_cnf(cnf_formula) -> tuple:
     """
     pos = {}
     G = get_graph_base(pos, cnf_formula.nv)
-    clauses = cnf_formula.clauses   # int list
+    clauses = cnf_formula.clauses
     for clause_nb in range(len(clauses)):
         add_clause(G, pos, clause_nb+1, clauses[clause_nb][0], 
                    clauses[clause_nb][1], clauses[clause_nb][2])
@@ -150,7 +150,6 @@ def get_dict_coloring(G, colors: dict):
     colors: dict
         same dict but associate all nodes (str) to colors (str)
     """
-
     if len(G) == 0:
         return {}
     
@@ -204,6 +203,12 @@ def add_colors_from_model(colors: dict, model: list):
     for var in model:
         colors[str(var)] = 'green'
 
+def get_dict_label(G):
+    """
+    
+    """
+    return {n: (n.split('_')[0] if n[0] != 'N' or n == 'N' else '') for n in G.nodes}
+
 def graph_coloring(G, pos: dict, model: list) -> list:
     """ returns a solution deduced from the coloring and draws the 
     graph if possible
@@ -227,7 +232,8 @@ def graph_coloring(G, pos: dict, model: list) -> list:
     add_colors_from_model(colors, model)
     dict_colors = get_dict_coloring(G, colors)    
     list_colors = get_list_colors(G, dict_colors)
-    nx.draw_networkx(G, node_color = list_colors, pos = pos)   # Draw graph
+    nx.draw_networkx(G, node_color = list_colors, pos = pos, 
+                     labels = get_dict_label(G))   # Draw graph
     return dict_colors, len(set(dict_colors.values()))
 
 #### Main Program
@@ -236,7 +242,7 @@ cnf_formula = CNF(from_file='formula.cnf')
 
 print("solv by pysat solver :")
 
-with Solver(bootstrap_with=cnf_formula) as solver:
+with Solver(bootstrap_with = cnf_formula) as solver:
     # call the solver for this formula :
     is_satisfiable = solver.solve()
     print('\tformula is', f'{"s" if is_satisfiable else "uns"}atisfiable')
