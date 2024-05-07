@@ -29,13 +29,12 @@ def get_graph_base(pos: dict, nb_var: int):
     """
     G = nx.Graph()
     G.add_edges_from([('T', 'F'), ('N', 'F'), ('T', 'N')]) # references nodes
-    pos['T'] = [0, 6]   #\
-    pos['F'] = [0, 4]   # > references positions
-    pos['N'] = [10, 5]   #/
+    # references positions
+    pos['T'] = [0, 6]; pos['F'] = [0, 4]; pos['N'] = [10, 5]      
     for i in range(1, nb_var+1):        # adds nodes/edges and literals pos
         G.add_edges_from([(str(i), str(-i)), (str(i), 'N'), (str(-i), 'N')])
-        pos[str(i)] = [(i-1)*12, 2]
-        pos[str(-i)] = [(i-1)*12+5, 2]
+        pos[str(i)] = [(i-1)*15, 2]
+        pos[str(-i)] = [(i-1)*15+7, 2]
     return G
     
 def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
@@ -57,12 +56,10 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
     x1x2 = f"{x1}∨{x2}_{clause_nb}"; I_x1x2 = f"I_{x1}∨{x2}_{clause_nb}"
     I_x3 = f"I_{x3}_{clause_nb}"; x1x2x3 = f"{x1}∨{x2}∨{x3}_{clause_nb}"
     # sets pos
-    pos[I_x1] = [(clause_nb)*12, 0]
-    pos[I_x2] = [(clause_nb)*12+5, 0]
-    pos[x1x2] = [(clause_nb)*12+2.5, -2]
-    pos[I_x1x2] = [(clause_nb)*12+2.5, -3]
+    pos[I_x1] = [(clause_nb)*12, 0]; pos[I_x2] = [(clause_nb)*12+5, 0]
+    pos[x1x2] = [(clause_nb)*12+2.5, -2];pos[I_x1x2] = [(clause_nb)*12+2.5, -3]
     pos[I_x3] = [(clause_nb)*12+7.5, -3]
-    pos[x1x2x3] = [(clause_nb)*12+5, -5-(1*(clause_nb%4))]
+    pos[x1x2x3] = [(clause_nb)*12+5, -5-(clause_nb%4)]
     # adds edges and nodes
     G.add_edges_from([(str(x1), I_x1), (str(x2), I_x2), 
                       (I_x1, I_x2), (I_x1, x1x2), (I_x2, x1x2), 
@@ -163,7 +160,7 @@ def get_list_colors(G, colors: dict) -> list:
     return [colors[node] for node in G.nodes]
 
 def graph_coloring(G, pos: dict, model: list) -> list:
-    """ returns a coloring and draws the graph if possible
+    """ returns a coloring and draws the graph
 
     Parameters
     -----------
