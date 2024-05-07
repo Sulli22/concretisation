@@ -80,6 +80,8 @@ nx.relabel_nodes(G, {n: str(n) for n in G.nodes}, False)
 cnf_formula = get_cnf_from_graph(G)
 pos = nx.random_layout(G)
 
+cnf_formula.to_file('graph_formula.cnf')  # writing to a file
+
 plt.subplot(131)
 plt.title("uncolored graph")
 nx.draw_networkx(G, pos = pos)   # Draw graph
