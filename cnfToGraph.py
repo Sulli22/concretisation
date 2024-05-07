@@ -1,7 +1,6 @@
 #### imports
 import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
 from pysat.formula import CNF
 from pysat.solvers import Solver
 
@@ -30,13 +29,13 @@ def get_graph_base(pos: dict, nb_var: int):
     """
     G = nx.Graph()
     G.add_edges_from([('T', 'F'), ('N', 'F'), ('T', 'N')]) # references nodes
-    pos['T'] = np.array([0, 5])     #\
-    pos['F'] = np.array([2, 5])     # > references positions
-    pos['N'] = np.array([1, 3])     #/
+    pos['T'] = [0, 5]     #\
+    pos['F'] = [2, 5]    # > references positions
+    pos['N'] = [1, 3]     #/
     for i in range(1, nb_var+1):        # adds nodes/edges and literals pos
         G.add_edges_from([(str(i), str(-i)), (str(i), 'N'), (str(-i), 'N')])
-        pos[str(i)] = np.array([(i-1)*7, 2])
-        pos[str(-i)] = np.array([(i-1)*7+2, 2])
+        pos[str(i)] = [(i-1)*7, 2]
+        pos[str(-i)] = [(i-1)*7+2, 2]
     return G
     
 def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
@@ -61,12 +60,12 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
     N_x3 = f"N_{x3}_{clause_nb}"
     dij_x1x2x3 = f"{x1}∨{x2}∨{x3}_{clause_nb}"
     # sets pos
-    pos[dij_x1x2] = np.array([(clause_nb-1)*4+0.5, -2])
-    pos[N_x1x2] = np.array([(clause_nb-1)*4+0.5, -3])
-    pos[N_x1] = np.array([(clause_nb-1)*4, 0])
-    pos[N_x2] = np.array([(clause_nb-1)*4+1, 0])
-    pos[N_x3] = np.array([(clause_nb-1)*4+1.5, -3])
-    pos[dij_x1x2x3] = np.array([(clause_nb-1)*4+1, -5])
+    pos[dij_x1x2] = [(clause_nb-1)*4+0.5, -2]
+    pos[N_x1x2] = [(clause_nb-1)*4+0.5, -3]
+    pos[N_x1] = [(clause_nb-1)*4, 0]
+    pos[N_x2] = [(clause_nb-1)*4+1, 0]
+    pos[N_x3] = [(clause_nb-1)*4+1.5, -3]
+    pos[dij_x1x2x3] = [(clause_nb-1)*4+1, -5]
     # adds edges and nodes
     G.add_edges_from([(str(x1), N_x1), (str(x2), N_x2), (N_x1, N_x2), 
                       (N_x1, dij_x1x2), (N_x2, dij_x1x2), (dij_x1x2, N_x1x2), 
