@@ -29,13 +29,13 @@ def get_graph_base(pos: dict, nb_var: int):
     """
     G = nx.Graph()
     G.add_edges_from([('T', 'F'), ('N', 'F'), ('T', 'N')]) # references nodes
-    pos['T'] = [0, 5]     #\
-    pos['F'] = [2, 5]    # > references positions
-    pos['N'] = [1, 3]     #/
+    pos['T'] = [0, 6]   #\
+    pos['F'] = [0, 4]   # > references positions
+    pos['N'] = [10, 5]   #/
     for i in range(1, nb_var+1):        # adds nodes/edges and literals pos
         G.add_edges_from([(str(i), str(-i)), (str(i), 'N'), (str(-i), 'N')])
-        pos[str(i)] = [(i-1)*7, 2]
-        pos[str(-i)] = [(i-1)*7+2, 2]
+        pos[str(i)] = [(i-1)*12, 2]
+        pos[str(-i)] = [(i-1)*12+5, 2]
     return G
     
 def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
@@ -53,32 +53,22 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
         dict that associates nodes to their position
     """
     # sets names
-    N_x1 = f"I_{x1}_{clause_nb}"
-    N_x2 = f"I_{x2}_{clause_nb}"
-    dij_x1x2 = f"{x1}∨{x2}_{clause_nb}"
-    N_x1x2 = f"I_{x1}∨{x2}_{clause_nb}"
-    N_x3 = f"I_{x3}_{clause_nb}"
-    dij_x1x2x3 = f"{x1}∨{x2}∨{x3}_{clause_nb}"
+    I_x1 = f"I_{x1}_{clause_nb}"; I_x2 = f"I_{x2}_{clause_nb}"
+    x1x2 = f"{x1}∨{x2}_{clause_nb}"; I_x1x2 = f"I_{x1}∨{x2}_{clause_nb}"
+    I_x3 = f"I_{x3}_{clause_nb}"; x1x2x3 = f"{x1}∨{x2}∨{x3}_{clause_nb}"
     # sets pos
-    pos[dij_x1x2] = [(clause_nb-1)*4+0.5, -2]
-    pos[N_x1x2] = [(clause_nb-1)*4+0.5, -3]
-    pos[N_x1] = [(clause_nb-1)*4, 0]
-    pos[N_x2] = [(clause_nb-1)*4+1, 0]
-    pos[N_x3] = [(clause_nb-1)*4+1.5, -3]
-    pos[dij_x1x2x3] = [(clause_nb-1)*4+1, -5]
+    pos[I_x1] = [(clause_nb)*12, 0]
+    pos[I_x2] = [(clause_nb)*12+5, 0]
+    pos[x1x2] = [(clause_nb)*12+2.5, -2]
+    pos[I_x1x2] = [(clause_nb)*12+2.5, -3]
+    pos[I_x3] = [(clause_nb)*12+7.5, -3]
+    pos[x1x2x3] = [(clause_nb)*12+5, -5-(1*(clause_nb%4))]
     # adds edges and nodes
-    G.add_edges_from([(str(x1), N_x1), 
-                      (str(x2), N_x2), 
-                      (N_x1, N_x2), 
-                      (N_x1, dij_x1x2), 
-                      (N_x2, dij_x1x2), 
-                      (dij_x1x2, N_x1x2), 
-                      (str(x3), N_x3), 
-                      (N_x1x2, N_x3), 
-                      (N_x1x2, dij_x1x2x3),
-                      (N_x3, dij_x1x2x3), 
-                      (dij_x1x2x3, 'F'), 
-                      (dij_x1x2x3, 'N')])       
+    G.add_edges_from([(str(x1), I_x1), (str(x2), I_x2), 
+                      (I_x1, I_x2), (I_x1, x1x2), (I_x2, x1x2), 
+                      (x1x2, I_x1x2), (str(x3), I_x3), 
+                      (I_x1x2, I_x3), (I_x1x2, x1x2x3), (I_x3, x1x2x3), 
+                      (x1x2x3, 'F'), (x1x2x3, 'N')])       
 
 def get_graph_from_cnf(cnf_formula) -> tuple: 
     """ returns the graph corresponding to the cnf formula
@@ -99,7 +89,7 @@ def get_graph_from_cnf(cnf_formula) -> tuple:
     G = get_graph_base(pos, cnf_formula.nv)
     clauses = cnf_formula.clauses
     for clause_nb in range(len(clauses)):
-        add_clause(G, pos, clause_nb+1, clauses[clause_nb][0], 
+        add_clause(G, pos, clause_nb, clauses[clause_nb][0], 
                    clauses[clause_nb][1], clauses[clause_nb][2])
     return G, pos
 
@@ -141,7 +131,8 @@ def DSATUR(G, colors: dict):
         yield node
 
 def get_list_colors(G, colors: dict) -> list:
-    """ returns a list of colors in graph nodes order
+    """ returns a list of colors in the order of the graph nodes, 
+        respecting the coloring rules
     
     Parameters
     -----------
@@ -195,10 +186,13 @@ def graph_coloring(G, pos: dict, model: list) -> list:
 
     list_colors = get_list_colors(G, colors)
     # labels used for proper display
-    labels = {n: (n.split('_')[0] if n[0] != 'I' else '') for n in G.nodes}
-
+    labels = {n: (n.split('_')[0] \
+                if n[0] != 'I' and len(n.split('∨')) != 2 else '') \
+                for n in G.nodes}
+    
+    plt.title(f"{model}")
     nx.draw_networkx(G, node_color = list_colors, 
-                    pos = pos, labels = labels)   # Draw graph
+                    pos = pos, labels = labels, edge_color = 'grey')   # Draw graph
     
     return list_colors
 
@@ -223,6 +217,5 @@ if is_satisfiable:
     G, pos = get_graph_from_cnf(cnf_formula)
     list_colors = graph_coloring(G, pos, model)
 
-    #print(f"\t {list_colors}")
     print(f"\t-> {len(set(list_colors))}-coloring")
     plt.show()                                      # ShowFigure
