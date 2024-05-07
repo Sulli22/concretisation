@@ -53,11 +53,11 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
         dict that associates nodes to their position
     """
     # sets names
-    N_x1 = f"N_{x1}_{clause_nb}"
-    N_x2 = f"N_{x2}_{clause_nb}"
+    N_x1 = f"I_{x1}_{clause_nb}"
+    N_x2 = f"I_{x2}_{clause_nb}"
     dij_x1x2 = f"{x1}∨{x2}_{clause_nb}"
-    N_x1x2 = f"N_{x1}∨{x2}_{clause_nb}"
-    N_x3 = f"N_{x3}_{clause_nb}"
+    N_x1x2 = f"I_{x1}∨{x2}_{clause_nb}"
+    N_x3 = f"I_{x3}_{clause_nb}"
     dij_x1x2x3 = f"{x1}∨{x2}∨{x3}_{clause_nb}"
     # sets pos
     pos[dij_x1x2] = [(clause_nb-1)*4+0.5, -2]
@@ -67,10 +67,17 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
     pos[N_x3] = [(clause_nb-1)*4+1.5, -3]
     pos[dij_x1x2x3] = [(clause_nb-1)*4+1, -5]
     # adds edges and nodes
-    G.add_edges_from([(str(x1), N_x1), (str(x2), N_x2), (N_x1, N_x2), 
-                      (N_x1, dij_x1x2), (N_x2, dij_x1x2), (dij_x1x2, N_x1x2), 
-                      (str(x3), N_x3), (N_x1x2, N_x3), (N_x1x2, dij_x1x2x3),
-                      (N_x3, dij_x1x2x3), (dij_x1x2x3, 'F'), 
+    G.add_edges_from([(str(x1), N_x1), 
+                      (str(x2), N_x2), 
+                      (N_x1, N_x2), 
+                      (N_x1, dij_x1x2), 
+                      (N_x2, dij_x1x2), 
+                      (dij_x1x2, N_x1x2), 
+                      (str(x3), N_x3), 
+                      (N_x1x2, N_x3), 
+                      (N_x1x2, dij_x1x2x3),
+                      (N_x3, dij_x1x2x3), 
+                      (dij_x1x2x3, 'F'), 
                       (dij_x1x2x3, 'N')])       
 
 def get_graph_from_cnf(cnf_formula) -> tuple: 
@@ -98,7 +105,7 @@ def get_graph_from_cnf(cnf_formula) -> tuple:
 
 ### Coloring
 
-def get_list_DSATUR(G, colors: dict):
+def DSATUR(G, colors: dict):
     """Iterates over all the nodes of G in "saturation order" ("DSATUR").
 
     Parameters
@@ -121,7 +128,7 @@ def get_list_DSATUR(G, colors: dict):
             distinct_colors[neighbor].add(color)
 
     while len(G) != len(colors):
-        # Update the distinct color sets for the neighbors.
+        # Update the distinct color sets for the neighbors
         for node, color in colors.items():
             for neighbor in G[node]:
                 distinct_colors[neighbor].add(color)
@@ -133,8 +140,8 @@ def get_list_DSATUR(G, colors: dict):
         node = max(saturation, key=lambda v: (saturation[v], G.degree(v)))
         yield node
 
-def get_dict_coloring(G, colors: dict):
-    """ returns a dict that associates nodes to colors
+def get_list_colors(G, colors: dict) -> list:
+    """ returns a list of colors in graph nodes order
     
     Parameters
     -----------
@@ -146,15 +153,13 @@ def get_dict_coloring(G, colors: dict):
         
     Returns
     --------
-    colors: dict
-        same dict but associate all nodes (str) to colors (str)
+    unamed: list
+        colors (str) in graph nodes order
     """
     if len(G) == 0:
         return {}
     
-    nodes = get_list_DSATUR(G, colors) # nodes of G in "saturation order"
-    
-    for u in nodes:
+    for u in DSATUR(G, colors): # nodes of G in "saturation order"
         # Set to keep track of colors of neighbors
         names_colors = {colors[v] for v in G[u] if v in colors}
         
@@ -164,24 +169,7 @@ def get_dict_coloring(G, colors: dict):
                 break
         # Assign the new color to the current node
         colors[u] = color
-    return colors
-
-def get_list_colors(G, dict_colors: dict) -> list:
-    """ returns a list of colors in graph nodes order
-
-    Parameters
-    -----------
-    G: Networkx graph
-        graph that we want to color
-    dict_colors: dict
-        with graph nodes as keys and colors as values
-        
-    Returns
-    --------
-    unamed: list
-        list of colors (str)
-    """
-    return [dict_colors[node] for node in G.nodes]
+    return [colors[node] for node in G.nodes]
 
 def add_colors_from_model(colors: dict, model: list):
     """ add colors from model (list) in colors dict
@@ -206,11 +194,10 @@ def get_dict_label(G):
     """
     
     """
-    return {n: (n.split('_')[0] if n[0] != 'N' or n == 'N' else '') for n in G.nodes}
+    return {n: (n.split('_')[0] if n[0] != 'I' else '') for n in G.nodes}
 
 def graph_coloring(G, pos: dict, model: list) -> list:
-    """ returns a solution deduced from the coloring and draws the 
-    graph if possible
+    """ returns a coloring and draws the graph if possible
 
     Parameters
     -----------
@@ -223,21 +210,19 @@ def graph_coloring(G, pos: dict, model: list) -> list:
     
     Returns
     --------
-    unamed: tuple
-        tuple having as first element a dict that associate node (str) to 
-        color (str) and as second element k (int) - coloring corresponding
+    list_colors: list
+        list of colors in order of G nodes
     """
-    colors = {'N': 'blue', 'F': 'red', 'T': 'green'}
-    add_colors_from_model(colors, model)
-    dict_colors = get_dict_coloring(G, colors)    
-    list_colors = get_list_colors(G, dict_colors)
-    nx.draw_networkx(G, node_color = list_colors, pos = pos, 
-                     labels = get_dict_label(G))   # Draw graph
-    return dict_colors, len(set(dict_colors.values()))
+    colors = {'T': 'green', 'F': 'red', 'N': 'blue'}
+    add_colors_from_model(colors, model) 
+    list_colors = get_list_colors(G, colors)
+    nx.draw_networkx(G, node_color = list_colors, 
+                    pos = pos, labels = get_dict_label(G))   # Draw graph
+    return list_colors
 
 #### Main Program
 
-cnf_formula = CNF(from_file='formula.cnf')
+cnf_formula = CNF(from_file = 'formula.cnf')
 
 print("solv by pysat solver :")
 
@@ -250,15 +235,12 @@ with Solver(bootstrap_with = cnf_formula) as solver:
     model = solver.get_model()
     print('\tand the model is:', model)
 
-    # the formula is unsatisfiable :
-    print('\tand the unsatisfiable core is:', solver.get_core())
-
 if is_satisfiable:
     print("graph coloring corresponding:")
 
     G, pos = get_graph_from_cnf(cnf_formula)
-    dict, k = graph_coloring(G, pos, model)
+    list_colors = graph_coloring(G, pos, model)
 
-    #print(f"\tdict coloring: {dict}")
-    print(f"\t-> {k}-coloring")
+    #print(f"\t {list_colors}")
+    print(f"\t-> {len(set(list_colors))}-coloring")
     plt.show()                                      # ShowFigure
