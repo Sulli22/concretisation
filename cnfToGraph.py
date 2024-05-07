@@ -171,31 +171,6 @@ def get_list_colors(G, colors: dict) -> list:
         colors[u] = color
     return [colors[node] for node in G.nodes]
 
-def add_colors_from_model(colors: dict, model: list):
-    """ add colors from model (list) in colors dict
-
-    Parameters
-    -----------
-    G: Networkx graph
-        graph that we want to color
-    dict_colors: dict
-        with graph nodes as keys and colors as values
-        
-    Returns
-    --------
-    unamed: list
-        list of colors (str)
-    
-    """
-    for var in model:
-        colors[str(var)] = 'green'
-
-def get_dict_label(G):
-    """
-    
-    """
-    return {n: (n.split('_')[0] if n[0] != 'I' else '') for n in G.nodes}
-
 def graph_coloring(G, pos: dict, model: list) -> list:
     """ returns a coloring and draws the graph if possible
 
@@ -214,10 +189,17 @@ def graph_coloring(G, pos: dict, model: list) -> list:
         list of colors in order of G nodes
     """
     colors = {'T': 'green', 'F': 'red', 'N': 'blue'}
-    add_colors_from_model(colors, model) 
+    # add colors from model
+    for var in model:
+        colors[str(var)] = 'green'
+
     list_colors = get_list_colors(G, colors)
+    # labels used for proper display
+    labels = {n: (n.split('_')[0] if n[0] != 'I' else '') for n in G.nodes}
+
     nx.draw_networkx(G, node_color = list_colors, 
-                    pos = pos, labels = get_dict_label(G))   # Draw graph
+                    pos = pos, labels = labels)   # Draw graph
+    
     return list_colors
 
 #### Main Program
