@@ -6,29 +6,22 @@ import numpy as np
 from pysat.formula import CNF
 from pysat.solvers import Solver
 
-wm = plt.get_current_fig_manager()      # > plt fullscreen
-wm.window.state('zoomed')               #/
-
-
 #### solving cnf, building and coloring the corresponding graph
 
-def main_1():
+def main_cnf2graph():
     """
 
     """
 
 #### graph coloring with solver sat
 
-def main_2():
+def main_graph_coloring_with_solver():
     """
 
     """
 
 #### main program
-
-def main():
-    """
-    
-    """
-
-main()
+"""
+wm = plt.get_current_fig_manager()      # > plt fullscreen
+wm.window.state('zoomed')               #/
+"""

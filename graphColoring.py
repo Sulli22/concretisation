@@ -1,4 +1,5 @@
 #### imports
+
 import networkx as nx
 import matplotlib.pyplot as plt
 from pysat.formula import CNF
