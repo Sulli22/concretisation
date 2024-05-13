@@ -197,7 +197,7 @@ def graph_coloring(G, pos: dict, model: list) -> list:
 #### Main Program
 
 #file_name = input('file name : ')
-cnf_formula = CNF(from_file = 'graph_formula.cnf')
+cnf_formula = CNF(from_file = 'formula.cnf')
 
 print("solv by pysat solver :")
 
