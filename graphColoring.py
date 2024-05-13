@@ -72,8 +72,8 @@ def get_list_color(G, cnf):
 
 #### main
 
-nb_nodes = 100 #int(input("number of nodes : "))
-nb_edges = 150 #int(input("number of edges : "))
+nb_nodes = 10 #int(input("number of nodes : "))
+nb_edges = 10 #int(input("number of edges : "))
 
 G = nx.gnm_random_graph(nb_nodes, nb_edges)
 nx.relabel_nodes(G, {n: str(n) for n in G.nodes}, False)
