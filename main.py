@@ -1,5 +1,6 @@
 #### imports
 
+import os
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
@@ -87,16 +88,6 @@ def get_graph_from_cnf(cnf_formula) -> tuple:
                    clauses[clause_nb][1], clauses[clause_nb][2])
     return G, pos
 
-def get_cnf_from_file(file: str):
-    """
-    
-    """
-    try:
-        return CNF(from_file = file + ".cnf")
-    except:
-        file = input("file don't find, file name (without .cnf): ")
-        get_cnf_from_file(file)
-
 #### graph coloring functions
 
 ### DSATUR 
@@ -153,8 +144,6 @@ def get_list_colors_DSATUR(G, cnf_formula) -> list:
     unamed: list
         colors (str) in graph nodes order
     """
-    #if len(G) == 0:
-    #    return {}
 
     with Solver(bootstrap_with = cnf_formula) as solver:
         if not solver.solve():
@@ -214,7 +203,7 @@ def get_cnf_from_graph(G):
         cnf.append([-int("1"+i), -int("1"+j)])
         cnf.append([-int("2"+i), -int("2"+j)])
         cnf.append([-int("3"+i), -int("3"+j)])
-
+    
     return cnf
 
 def get_list_colors_CNF(G, cnf_formula):
@@ -232,17 +221,34 @@ def get_list_colors_CNF(G, cnf_formula):
     unamed: list
         list of color (str) in order of G nodes
     """
-    ## relabel
-    cnf_formula_bis = get_cnf_from_graph(G)
+    # relabel
+    must_be_relabel = False
+    for i in G.nodes:
+        try:
+            int(i)
+        except:
+            must_be_relabel = True
+            break
+    if must_be_relabel:
+        dict_relabel = {}; i = 0
+        for n in G.nodes:
+            dict_relabel[n] = str(i); i += 1
+        G_copy = nx.relabel_nodes(G, dict_relabel)
+    else :
+        G_copy = G
+
+    cnf_formula_bis = get_cnf_from_graph(G_copy)
+
     with Solver(bootstrap_with = cnf_formula_bis) as solver: # pysat solver
         if not solver.solve():
             return False
         model = [str(n) for n in solver.get_model() if n > 0]
 
-    dict_colors = {}; dict_links = {'1': 'green', '2': 'red', '3': 'blue'}
+    dict_colors = {}; dict_links = {'1': 'blue', '2': 'green', '3': 'red'}
     for n in model:
         dict_colors[n[1:len(n)+1]] = dict_links[n[0]]
-    return [dict_colors[n] for n in G.nodes]
+
+    return [dict_colors[n] for n in G_copy.nodes]
 
 ### PYSCSP 
 
@@ -258,7 +264,10 @@ def main_cnf2graph():
 
     """
     formula_file = input("file name (without .cnf): ")
-    cnf_formula = get_cnf_from_file(formula_file) 
+    while formula_file + ".cnf" not in os.listdir():
+        formula_file = input("file not found : ")
+
+    cnf_formula = CNF(from_file = formula_file + ".cnf") 
     G, pos = get_graph_from_cnf(cnf_formula)
 
     print('<Title>')
@@ -266,28 +275,66 @@ def main_cnf2graph():
     print("2 - CNF")
     print("3 - PYCSP")
     rep = input("Your choice : ")
-    dict_funct = {'1': get_list_colors_DSATUR, '2': get_list_colors_CNF, '3': get_list_colors_PYCSP}
+    dict_funct = {'1': get_list_colors_DSATUR, '2': get_list_colors_CNF, \
+                  '3': get_list_colors_PYCSP}
     while rep not in ['1', '2', '3']:
         rep = input("This choice don't exist, your choice : ")
 
     list_colors = dict_funct[rep](G, cnf_formula)
 
-    labels = {n: (n.split('_')[0] \
-                if n[0] != 'I' and len(n.split('∨')) != 2 else '') \
-                for n in G.nodes}
-    
-    nx.draw_networkx(G, node_color = list_colors, 
-                    pos = pos, labels = labels, edge_color = 'grey')   # Draw graph
-    plt.show()
+    if list_colors:
+        labels = {n: (n.split('_')[0] \
+                    if n[0] != 'I' and len(n.split('∨')) != 2 else '') \
+                    for n in G.nodes}
+        
+        nx.draw_networkx(G, node_color = list_colors, 
+                pos = pos, labels = labels, edge_color = 'grey')   # Draw graph
+        
+        wm = plt.get_current_fig_manager()      # > plt fullscreen
+        wm.window.state('zoomed')               #/
+
+        plt.show()
 
 
 
 #### main coloring
 
+
 def main_graphColoring():
     """
     
     """
+    nb_nodes = 10 #int(input("number of nodes : "))
+    nb_edges = 10 #int(input("number of edges : "))
+
+    G = nx.gnm_random_graph(nb_nodes, nb_edges)
+    nx.relabel_nodes(G, {n: str(n) for n in G.nodes}, False)
+    cnf_formula = get_cnf_from_graph(G)
+    pos = nx.random_layout(G)
+    
+    plt.subplot(121)
+    plt.title("uncolored graph")
+    nx.draw_networkx(G, pos = pos)   # Draw graph
+
+    print('<Title>')
+    print("1 - CNF")
+    print("2 - PYCSP")
+    rep = input("Your choice : ")
+    dict_funct = {'1': get_list_colors_CNF, '2': get_list_colors_PYCSP}
+    while rep not in ['1', '2']:
+        rep = input("This choice don't exist, your choice : ")
+
+    list_colors = dict_funct[rep](G, cnf_formula)
+
+    if list_colors: 
+        plt.subplot(122)
+        plt.title("colored graph : 3-coloring")
+        nx.draw_networkx(G, pos = pos, node_color = list_colors)   # Draw graph
+
+    wm = plt.get_current_fig_manager()      # > plt fullscreen
+    wm.window.state('zoomed')               #/
+
+    plt.show()
 
 
 #### main program
