@@ -244,7 +244,7 @@ def get_list_colors_CNF(G, cnf_formula):
             return False
         model = [str(n) for n in solver.get_model() if n > 0]
 
-    dict_colors = {}; dict_links = {'1': 'blue', '2': 'green', '3': 'red'}
+    dict_colors = {}; dict_links = {'1': 'green', '2': 'red', '3': 'blue'}
     for n in model:
         dict_colors[n[1:len(n)+1]] = dict_links[n[0]]
 
@@ -263,6 +263,7 @@ def main_cnf2graph():
     """
 
     """
+    print("<title>")
     formula_file = input("file name (without .cnf): ")
     while formula_file + ".cnf" not in os.listdir():
         formula_file = input("file not found : ")
@@ -270,7 +271,6 @@ def main_cnf2graph():
     cnf_formula = CNF(from_file = formula_file + ".cnf") 
     G, pos = get_graph_from_cnf(cnf_formula)
 
-    print('<Title>')
     print("1 - DSATUR")
     print("2 - CNF")
     print("3 - PYCSP")
@@ -281,6 +281,7 @@ def main_cnf2graph():
         rep = input("This choice don't exist, your choice : ")
 
     list_colors = dict_funct[rep](G, cnf_formula)
+    print(len(set(list_colors)))
 
     if list_colors:
         labels = {n: (n.split('_')[0] \
@@ -295,15 +296,13 @@ def main_cnf2graph():
 
         plt.show()
 
-
-
 #### main coloring
-
 
 def main_graphColoring():
     """
     
     """
+    print('<Title>')
     nb_nodes = 10 #int(input("number of nodes : "))
     nb_edges = 10 #int(input("number of edges : "))
 
@@ -316,7 +315,6 @@ def main_graphColoring():
     plt.title("uncolored graph")
     nx.draw_networkx(G, pos = pos)   # Draw graph
 
-    print('<Title>')
     print("1 - CNF")
     print("2 - PYCSP")
     rep = input("Your choice : ")
@@ -354,8 +352,3 @@ while run:
         run = False
     else:
         dict_funct[rep]()
-
-"""
-wm = plt.get_current_fig_manager()      # > plt fullscreen
-wm.window.state('zoomed')               #/
-"""
