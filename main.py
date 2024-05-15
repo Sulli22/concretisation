@@ -35,13 +35,16 @@ def get_graph_base(pos: dict, nb_var: int):
         pos[str(-i)] = [(i-1)*15+7, 2]
     return G
     
-def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
+def add_clause(G, pos: dict, nb_clauses: int, \
+               clause_nb: int, x1: int, x2: int, x3: int):
     """ adds a disjunction clause with input variables x1, x2, x3 to the graph 
 
     Parameters
     -----------
     G: Networkx graph
         graph use to implement clauses
+    nb_clauses: int
+        total number of clauses
     clause_nb: int
         clause number in the cnf formula
     x1, x2, x3 : int
@@ -57,7 +60,8 @@ def add_clause(G, pos: dict, clause_nb: int, x1: int, x2: int, x3: int):
     pos[I_x1] = [(clause_nb)*12, 0]; pos[I_x2] = [(clause_nb)*12+5, 0]
     pos[x1x2] = [(clause_nb)*12+2.5, -2];pos[I_x1x2] = [(clause_nb)*12+2.5, -3]
     pos[I_x3] = [(clause_nb)*12+7.5, -3]
-    pos[x1x2x3] = [(clause_nb)*12+5, -5-(clause_nb%4)]
+    pos[x1x2x3] = [(clause_nb)*12+5, \
+                    -5-(clause_nb%(nb_clauses//(6 if nb_clauses >=6 else 1)))]
     # adds edges and nodes
     G.add_edges_from([(str(x1), I_x1), (str(x2), I_x2), 
                       (I_x1, I_x2), (I_x1, x1x2), (I_x2, x1x2), 
@@ -82,9 +86,9 @@ def get_graph_from_cnf(cnf_formula) -> tuple:
     """
     pos = {}
     G = get_graph_base(pos, cnf_formula.nv)
-    clauses = cnf_formula.clauses
-    for clause_nb in range(len(clauses)):
-        add_clause(G, pos, clause_nb, clauses[clause_nb][0], 
+    clauses = cnf_formula.clauses; nb_clauses = len(clauses)
+    for clause_nb in range(nb_clauses):
+        add_clause(G, pos, nb_clauses ,clause_nb, clauses[clause_nb][0], 
                    clauses[clause_nb][1], clauses[clause_nb][2])
     return G, pos
 
@@ -250,9 +254,9 @@ def get_list_colors_CNF(G, cnf_formula):
 
     return [dict_colors[n] for n in G_copy.nodes]
 
-### PYSCSP 
+### CSP 
 
-def get_list_colors_PYCSP():
+def get_list_colors_CSP():
     """
     
     """
@@ -265,10 +269,10 @@ def main_cnf2graph():
     """
     print("<title>")
     formula_file = input("file name (without .cnf): ")
-    while formula_file + ".cnf" not in os.listdir():
+    while formula_file + ".cnf" not in os.listdir("./cnf_formulas"):
         formula_file = input("file not found : ")
 
-    cnf_formula = CNF(from_file = formula_file + ".cnf") 
+    cnf_formula = CNF(from_file = "./cnf_formulas/" + formula_file + ".cnf") 
     G, pos = get_graph_from_cnf(cnf_formula)
 
     print("1 - DSATUR")
@@ -276,14 +280,18 @@ def main_cnf2graph():
     print("3 - PYCSP")
     rep = input("Your choice : ")
     dict_funct = {'1': get_list_colors_DSATUR, '2': get_list_colors_CNF, \
-                  '3': get_list_colors_PYCSP}
+                  '3': get_list_colors_CSP}
     while rep not in ['1', '2', '3']:
         rep = input("This choice don't exist, your choice : ")
 
     list_colors = dict_funct[rep](G, cnf_formula)
-    print(len(set(list_colors)))
-
+    
     if list_colors:
+        if list_colors[:3] != ['green', 'red', 'blue']:
+            dict_links = {list_colors[0]: 'green', list_colors[1]: 'red', \
+                        list_colors[2]: 'blue'}
+            list_colors = [dict_links[i] for i in list_colors]
+
         labels = {n: (n.split('_')[0] \
                     if n[0] != 'I' and len(n.split('∨')) != 2 else '') \
                     for n in G.nodes}
@@ -303,8 +311,8 @@ def main_graphColoring():
     
     """
     print('<Title>')
-    nb_nodes = 10 #int(input("number of nodes : "))
-    nb_edges = 10 #int(input("number of edges : "))
+    nb_nodes = int(input("number of nodes : "))
+    nb_edges = int(input("number of edges : "))
 
     G = nx.gnm_random_graph(nb_nodes, nb_edges)
     nx.relabel_nodes(G, {n: str(n) for n in G.nodes}, False)
@@ -318,7 +326,7 @@ def main_graphColoring():
     print("1 - CNF")
     print("2 - PYCSP")
     rep = input("Your choice : ")
-    dict_funct = {'1': get_list_colors_CNF, '2': get_list_colors_PYCSP}
+    dict_funct = {'1': get_list_colors_CNF, '2': get_list_colors_CSP}
     while rep not in ['1', '2']:
         rep = input("This choice don't exist, your choice : ")
 
@@ -333,7 +341,6 @@ def main_graphColoring():
     wm.window.state('zoomed')               #/
 
     plt.show()
-
 
 #### main program
 
