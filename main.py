@@ -6,11 +6,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pysat.formula import CNF
 from pysat.solvers import Solver
+from pycsp3 import VarArray, solve, values, satisfy, SAT
 
 #### cnf to graph functions
 
 def get_graph_base(pos: dict, nb_var: int): 
-    """ returns a graph that will be used to implement the clauses
+    """ Returns a graph that will be used to implement the clauses
 
     Parameters
     -----------
@@ -47,7 +48,7 @@ def get_graph_base(pos: dict, nb_var: int):
     
 def add_clause(G, pos: dict, nb_clauses: int, \
                clause_nb: int, x1: int, x2: int, x3: int):
-    """ adds a disjunction clause with input variables x1, x2, x3 to the graph 
+    """ Adds a disjunction clause with input variables x1, x2, x3 to the graph 
 
     Parameters
     -----------
@@ -82,7 +83,7 @@ def add_clause(G, pos: dict, nb_clauses: int, \
                       (x1x2x3, 'F'), (x1x2x3, 'N')])    
 
 def get_graph_from_cnf(cnf_formula) -> tuple: 
-    """ returns the graph corresponding to the cnf formula
+    """ Returns the graph corresponding to the cnf formula
 
     Parameters
     -----------
@@ -128,7 +129,7 @@ def relabel_nodes(G):
     
     """
     # Create a mapping from original node labels to new integer labels
-    dict_relabel = {n: str(i) for i, n in enumerate(G.nodes)}
+    dict_relabel = {n: i for i, n in enumerate(G.nodes)}
     # Relabel nodes
     G_copy = nx.relabel_nodes(G, dict_relabel)
 
@@ -139,7 +140,7 @@ def relabel_nodes(G):
 ### DSATUR 
 
 def DSATUR(G, colors: dict):
-    """Iterates over all the nodes of G in "saturation order" ("DSATUR").
+    """ Iterates over all the nodes of G in "saturation order" ("DSATUR")
 
     Parameters
     -----------
@@ -174,7 +175,7 @@ def DSATUR(G, colors: dict):
         yield node
 
 def get_list_colors_DSATUR(G, cnf_formula) -> list:
-    """ returns a list of colors in the order of the graph nodes, 
+    """ Returns a list of colors in the order of the graph nodes, 
         respecting the coloring rules
     
     Parameters
@@ -216,7 +217,7 @@ def get_list_colors_DSATUR(G, cnf_formula) -> list:
 ### CNF 
 
 def get_cnf_from_graph(G):
-    """ returns a cnf formula that is satisfiable if the graph is colorable
+    """ Returns a cnf formula that is satisfiable if the graph is colorable
     literals names:
         - 1i = node i is green
         - 2i = node i is red
@@ -253,7 +254,7 @@ def get_cnf_from_graph(G):
     return cnf
 
 def get_list_colors_CNF(G, relabel_need: bool) -> list:
-    """ returns a list of colors in the order of the graph nodes, 
+    """ Returns a list of colors in the order of the graph nodes, 
         respecting the coloring rules
 
     Parameters
@@ -290,7 +291,7 @@ def get_list_colors_CNF(G, relabel_need: bool) -> list:
 ### CSP 
 
 def get_list_colors_CSP(G, relabel_need: bool) -> list:
-    """ returns a list of colors in the order of the graph nodes, 
+    """ Returns a list of colors in the order of the graph nodes, 
         respecting the coloring rules
 
     Parameters
@@ -308,16 +309,16 @@ def get_list_colors_CSP(G, relabel_need: bool) -> list:
     # Relabel nodes if needed
     G_copy = relabel_nodes(G) if relabel_need else G
 
-    """
+    x  = VarArray(size = len(G_copy), dom = ['green', 'red', 'blue'])
+    dict_neighbor = {i: set(G_copy[i]) for i in G_copy}
 
-    """
+    satisfy(
+        x[i] != x[j] for i in G_copy for j in dict_neighbor[i]
+    )
 
-    # Create a dictionary to map nodes to colors
-    dict_colors = {}
-    dict_links = {'1': 'green', '2': 'red', '3': 'blue'}
-
-    # Return the list of colors in the order of the original graph nodes
-    return [dict_colors[str(n)] for n in G_copy.nodes]
+    # Return the list of colors
+    if solve() is SAT:
+        return values(x)
 
 #### main cnf to graph
 
@@ -388,10 +389,6 @@ def main_graphColoring():
 
     # Generate a random graph with specified nodes and edges
     G = nx.gnm_random_graph(nb_nodes, nb_edges)
-    nx.relabel_nodes(G, {n: str(n) for n in G.nodes}, copy=False)
-
-    # Convert the graph to CNF
-    cnf_formula = get_cnf_from_graph(G)
     pos = nx.random_layout(G)
     
     # Plot the uncolored graph
@@ -430,7 +427,6 @@ def display_menu():
     print('<Title>')
     print("1 - Get the graph corresponding to a CNF formula")
     print("2 - Get a graph coloring without greedy algorithm")
-    print("3 - Quit")
 
 def get_user_choice(valid_choices: list) -> str:
     """ Prompts the user to make a choice and ensures it is valid
@@ -451,24 +447,22 @@ def get_user_choice(valid_choices: list) -> str:
     return choice
 
 def main():
-    """
-    Main function that runs the program loop.
-    """
-    run = True
-    while run:
-        # Display the menu
-        display_menu()
+    """ Main function that runs the program """
+    # Display the menu
+    display_menu()
 
-        # Get the user's choice
-        choice = get_user_choice(['1', '2', '3'])
+    # Get the user's choice
+    choice = get_user_choice(['1', '2'])
 
-        # Handle the user's choice
-        if choice == '3':
-            run = False
-        else:
-            # Map the user's choice to the corresponding function and call it
-            dict_funct = {'1': main_cnf2graph, '2': main_graphColoring}
-            dict_funct[choice]()
+    # Handle the user's choice
+    dict_funct = {'1': main_cnf2graph, '2': main_graphColoring}
+    dict_funct[choice]()
+
+    # Remove files created by pycsp
+    if os.path.exists("main.xml"):
+        os.remove("main.xml")
+        for file in [f for f in os.listdir() if f.endswith(".log")]:
+                os.remove(file)
 
 if __name__ == "__main__":
     main()
