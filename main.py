@@ -4,7 +4,6 @@ import os
 import networkx as nx
 import matplotlib.pyplot as plt
 from pysat.formula import CNF
-from pycsp3 import Var, solve, satisfy, SAT
 
 from cnfToGraph import *
 from graphColoring import *
@@ -27,6 +26,7 @@ def main_cnf2graph2color():
     # Read the CNF formula from file
     cnf_formula = CNF(from_file=f"./cnf_formulas/{formula_file}.cnf")
     G, pos = get_graph_from_cnf(cnf_formula)
+    print("-> Graph")
     
     # Prompt for algorithm choice
     print("Select an algorithm:")
@@ -47,7 +47,7 @@ def main_cnf2graph2color():
         list_colors = dict_funct[rep](G, cnf_formula)
     else:
         list_colors = dict_funct[rep](G, True)
-    
+    print("-> list")
     if list_colors:
         # Standardize colors to green, red, and blue if needed
         if list_colors[:3] != ['green', 'red', 'blue']:
@@ -62,7 +62,7 @@ def main_cnf2graph2color():
         # Draw the graph
         nx.draw_networkx(G, node_color=list_colors, pos=pos, labels=labels, \
                          edge_color='grey')
-        
+        print("-> draw")
         # Maximize the plot window
         plt.get_current_fig_manager().window.state('zoomed')
         
@@ -82,6 +82,7 @@ def main_graphColoring():
     # Generate a random graph with specified nodes and edges
     G = nx.gnm_random_graph(nb_nodes, nb_edges)
     pos = nx.random_layout(G)
+    print("-> Graph generate")
     
     # Plot the uncolored graph
     plt.subplot(121)
@@ -99,12 +100,14 @@ def main_graphColoring():
 
     # Get the list of colors using the selected algorithm
     list_colors = dict_funct[rep](G, False)
+    print("-> list colors")
 
     # Plot the colored graph if coloring is successful
     if list_colors:
         plt.subplot(122)
         plt.title("Colored Graph: 3-coloring")
         nx.draw_networkx(G, pos=pos, node_color=list_colors)
+    print("-> draw")
 
     # Maximize the plot window
     plt.get_current_fig_manager().window.state('zoomed')
@@ -114,47 +117,22 @@ def main_graphColoring():
 
 #### main program
 
-def display_menu():
-    """ Displays the main menu to the user """
+def main():
+    """ Main function that runs the program """
+    # Display the menu
     os.system('cls' if os.name == 'nt' else 'clear')
     print("1 - Get the graph corresponding to a CNF formula and colour it")
     print("2 - Colour a graph without greedy algorithm")
 
-def get_user_choice(valid_choices: list) -> str:
-    """ Prompts the user to make a choice and ensures it is valid
-
-    Parameters:
-    -----------
-    valid_choices: list of str 
-        List of valid choices
-
-    Returns
-    --------
-    choice: str
-        The user's valid choice
-    """
+    # Get the user's choice
     choice = input("Your choice: ")
-    while choice not in valid_choices:
+    while choice not in ['1', '2']:
         choice = input("Invalid choice. Please enter a valid option: ")
     return choice
-
-def main():
-    """ Main function that runs the program """
-    # Display the menu
-    display_menu()
-
-    # Get the user's choice
-    choice = get_user_choice(['1', '2'])
 
     # Handle the user's choice
     dict_funct = {'1': main_cnf2graph2color, '2': main_graphColoring}
     dict_funct[choice]()
-
-    # Manage pycsp warning if not used
-    if not os.path.isfile("main.xml"):
-        x  = Var(0, 1); satisfy(x == 0)
-        if solve() is SAT:
-            os.system('cls' if os.name == 'nt' else 'clear')
 
     # Remove files created by pycsp
     for f in os.listdir():
