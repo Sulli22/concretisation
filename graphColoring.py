@@ -3,7 +3,6 @@
 import networkx as nx
 from pysat.formula import CNF
 from pysat.solvers import Solver
-from pycsp3 import VarArray, solve, values, satisfy, SAT
 
 #### Functions
 
@@ -199,15 +198,16 @@ def get_list_colors_CSP(G, relabel_need: bool) -> list:
     unamed: list or bool
         list of color (str) in order of G nodes or False if no coloring
     """
+    # Imports from pycsp3 
+    from pycsp3 import VarArray, solve, values, satisfy, SAT
+
     # Relabel nodes if needed
     G_copy = relabel_nodes(G) if relabel_need else G
 
-    x  = VarArray(size = len(G_copy), dom = ['green', 'red', 'blue'])
+    x = VarArray(size = len(G_copy), dom = ['green', 'red', 'blue'])
     dict_neighbor = {i: set(G_copy[i]) for i in G_copy}
 
-    satisfy(
-        x[i] != x[j] for i in G_copy for j in dict_neighbor[i]
-    )
+    satisfy(x[i] != x[j] for i in G_copy for j in dict_neighbor[i])
 
     # Return the list of colors
     if solve() is SAT:
