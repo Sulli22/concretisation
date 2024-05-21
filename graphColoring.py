@@ -211,4 +211,5 @@ def get_list_colors_CSP(G, relabel_need: bool) -> list:
 
     # Return the list of colors
     if solve() is SAT:
-        return values(x)
+        return [c if c != '*' else 'green' for c in values(x)]
+    return False
