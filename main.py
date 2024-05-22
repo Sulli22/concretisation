@@ -2,6 +2,7 @@
 
 import time
 import os
+from platform import system
 import networkx as nx
 import matplotlib.pyplot as plt
 from pysat.formula import CNF
@@ -77,7 +78,6 @@ def main_cnf2graph2color():
         print(f"- plot colored graph ~ {list_duration[-1]}s")
 
         # Maximize the plot window
-        from platform import system
         backend = plt.get_backend()
         cfm = plt.get_current_fig_manager()
         if backend == "wxAgg":
