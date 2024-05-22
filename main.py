@@ -2,12 +2,28 @@
 
 import time
 import os
+from platform import system
 import networkx as nx
 import matplotlib.pyplot as plt
 from pysat.formula import CNF
-
 from cnfToGraph import *
 from graphColoring import *
+
+#### Maximize the plot window
+
+def maximize():
+    """ Maximize the plot window """
+    backend = plt.get_backend()
+    cfm = plt.get_current_fig_manager()
+    if backend == "wxAgg":
+        cfm.frame.Maximize(True)
+    elif backend == "TkAgg":
+        if system() == "Windows":
+            cfm.window.state("zoomed")  # This is windows only
+        else:
+            cfm.resize(*cfm.window.maxsize())
+    elif backend == "QT4Agg":
+        cfm.window.showMaximized()
 
 #### main cnf to graph
 
@@ -38,26 +54,31 @@ def main_cnf2graph2color():
     formula_file = input("Enter the file name (without .cnf extension): ")
     while not os.path.isfile(f"./cnf_formulas/{formula_file}.cnf"):
         formula_file = input("File not found. Enter a valid file name: ")
-
-    # Read the CNF formula from file
+    
+    # start chrono
     t1 = time.time()
+    # Read the CNF formula from file
     cnf_formula = CNF(from_file=f"./cnf_formulas/{formula_file}.cnf")
     G, pos = get_graph_from_cnf(cnf_formula)
+    # end chrono
     t2 = time.time()
     list_duration = [t2-t1]
     print(f"- get graph ~ {list_duration[-1]}s")
 
-    # Get list of colors using the selected algorithm
+    # start chrono
     t1 = time.time()
+    # Get list of colors using the selected algorithm
     if rep == '1':
         list_colors = dict_funct[rep](G, cnf_formula)
     else:
         list_colors = dict_funct[rep](G, True)
+    # end chrono
     t2 = time.time()    
     list_duration.append(t2-t1)
     print(f"- get list color ~ {list_duration[-1]}s")
 
     if list_colors:
+        # start chrono
         t1 = time.time()
         # Standardize colors to green, red, and blue if needed
         if list_colors[:3] != ['green', 'red', 'blue']:
@@ -72,23 +93,13 @@ def main_cnf2graph2color():
         # Draw the graph
         nx.draw_networkx(G, node_color=list_colors, pos=pos, labels=labels, \
                          edge_color='grey')
+        # end chrono
         t2 = time.time()    
         list_duration.append(t2-t1)
         print(f"- plot colored graph ~ {list_duration[-1]}s")
 
         # Maximize the plot window
-        from platform import system
-        backend = plt.get_backend()
-        cfm = plt.get_current_fig_manager()
-        if backend == "wxAgg":
-            cfm.frame.Maximize(True)
-        elif backend == "TkAgg":
-            if system() == "Windows":
-                cfm.window.state("zoomed")  # This is windows only
-            else:
-                cfm.resize(*cfm.window.maxsize())
-        elif backend == "QT4Agg":
-            cfm.window.showMaximized()
+        maximize()
         
         # Show the plot
         plt.show()
@@ -96,6 +107,7 @@ def main_cnf2graph2color():
     else:
         print("-> the formula is unsatisfiable")
     
+    # final duration
     print(f"-> duration ~ {sum(list_duration)}s")
 
 
@@ -119,10 +131,12 @@ def main_graphColoring():
     nb_edges = int(input("Enter the number of edges: "))
     print("----------------------------------------------------------")
 
-    # Generate a random graph with specified nodes and edges
+    # start chrono
     t1 = time.time()
+    # Generate a random graph with specified nodes and edges
     G = nx.gnm_random_graph(nb_nodes, nb_edges)
     pos = nx.random_layout(G)
+    # end chrono
     t2 = time.time()
     list_duration = [t2-t1]
     print(f"- generate random graph ~ {list_duration[-1]}s")
@@ -136,30 +150,34 @@ def main_graphColoring():
     list_duration.append(t2-t1)
     print(f"- plot uncolored graph ~ {list_duration[-1]}s")
 
-    # Get the list of colors using the selected algorithm
+    # start chrono
     t1 = time.time()
+    # Get the list of colors using the selected algorithm
     list_colors = dict_funct[rep](G, False)
+    # end chrono
     t2 = time.time()
     list_duration.append(t2-t1)
     print(f"- get list colors: {list_duration[-1]}s")
-
+    
+    # start chrono
+    t1 = time.time() 
     # Plot the colored graph if coloring is successful
-    t1 = time.time() # start
     plt.subplot(122)
     if list_colors:
         plt.title("Colored Graph: 3-coloring")
         nx.draw_networkx(G, pos=pos, node_color=list_colors)
     else:
         plt.title("Colouring not found")
-    t2 = time.time() # 
+    # end chrono
+    t2 = time.time() 
     list_duration.append(t2-t1)
     print(f"- plot colored graph ~ {list_duration[-1]}s")
 
-    #
+    # final duration
     print(f"-> duration: ~ {sum(list_duration)}s")
 
     # Maximize the plot window
-    plt.get_current_fig_manager().window.state('zoomed')
+    maximize()
 
     # Show the plot
     plt.show()
