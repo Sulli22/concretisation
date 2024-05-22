@@ -45,7 +45,7 @@ def main_cnf2graph2color():
     G, pos = get_graph_from_cnf(cnf_formula)
     t2 = time.time()
     list_duration = [t2-t1]
-    print(f"- get graph: {list_duration[-1]}s")
+    print(f"- get graph ~ {list_duration[-1]}s")
 
     # Get list of colors using the selected algorithm
     t1 = time.time()
@@ -55,7 +55,7 @@ def main_cnf2graph2color():
         list_colors = dict_funct[rep](G, True)
     t2 = time.time()    
     list_duration.append(t2-t1)
-    print(f"- get list colors: {list_duration[-1]}s")
+    print(f"- get list color ~ {list_duration[-1]}s")
 
     if list_colors:
         t1 = time.time()
@@ -74,15 +74,22 @@ def main_cnf2graph2color():
                          edge_color='grey')
         t2 = time.time()    
         list_duration.append(t2-t1)
-        print(f"- plot colored graph: {list_duration[-1]}s")
+        print(f"- plot colored graph ~ {list_duration[-1]}s")
 
         # Maximize the plot window
-        plt.get_current_fig_manager().window.state('zoomed')
+        mng = plt.get_current_fig_manager()
+        try:
+            mng.window.state('zoomed')
+        except:
+            mng.resize(*mng.window.maxsize())
         
         # Show the plot
         plt.show()
     
-    print(f"-> duration: {sum(list_duration)}s")
+    else:
+        print("-> the formula is unsatisfiable")
+    
+    print(f"-> duration ~ {sum(list_duration)}s")
 
 
 #### main coloring
@@ -111,7 +118,7 @@ def main_graphColoring():
     pos = nx.random_layout(G)
     t2 = time.time()
     list_duration = [t2-t1]
-    print(f"- random graph: {list_duration[-1]}s")
+    print(f"- generate random graph ~ {list_duration[-1]}s")
 
     # Plot the uncolored graph
     t1 = time.time()
@@ -120,7 +127,7 @@ def main_graphColoring():
     nx.draw_networkx(G, pos=pos)
     t2 = time.time()    
     list_duration.append(t2-t1)
-    print(f"- plot uncolored graph: {list_duration[-1]}s")
+    print(f"- plot uncolored graph ~ {list_duration[-1]}s")
 
     # Get the list of colors using the selected algorithm
     t1 = time.time()
@@ -139,17 +146,16 @@ def main_graphColoring():
         plt.title("Colouring not found")
     t2 = time.time() # 
     list_duration.append(t2-t1)
-    print(f"- plot colored graph: {list_duration[-1]}s")
+    print(f"- plot colored graph ~ {list_duration[-1]}s")
 
     #
-    print(f"-> duration: {sum(list_duration)}s")
+    print(f"-> duration: ~ {sum(list_duration)}s")
 
     # Maximize the plot window
     plt.get_current_fig_manager().window.state('zoomed')
 
     # Show the plot
     plt.show()
-
 
 #### main program
 
