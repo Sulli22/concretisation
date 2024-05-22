@@ -77,11 +77,17 @@ def main_cnf2graph2color():
         print(f"- plot colored graph ~ {list_duration[-1]}s")
 
         # Maximize the plot window
-        mng = plt.get_current_fig_manager()
-        try:
-            mng.window.state('zoomed')
-        except:
-            mng.resize(*mng.window.maxsize())
+        figmgr = plt.get_current_fig_manager()
+        bkend = plt.get_backend()
+        if bkend == 'TkAgg':
+            try:
+                figmgr.window.state('zoomed')
+            except:
+                figmgr.resize(*figmgr.window.maxsize())
+        elif bkend == 'wxAgg':
+            figmgr.frame.Maximize(True)
+        else: # Qt4Agg, Qt5Agg, maybe others??
+            figmgr.window.showMaximized()
         
         # Show the plot
         plt.show()
