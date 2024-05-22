@@ -12,7 +12,7 @@ from graphColoring import *
 
 #### Maximize the plot window
 
-def max():
+def maximize():
     """ Maximize the plot window """
     backend = plt.get_backend()
     cfm = plt.get_current_fig_manager()
@@ -94,17 +94,7 @@ def main_cnf2graph2color():
         print(f"- plot colored graph ~ {list_duration[-1]}s")
 
         # Maximize the plot window
-        backend = plt.get_backend()
-        cfm = plt.get_current_fig_manager()
-        if backend == "wxAgg":
-            cfm.frame.Maximize(True)
-        elif backend == "TkAgg":
-            if system() == "Windows":
-                cfm.window.state("zoomed")  # This is windows only
-            else:
-                cfm.resize(*cfm.window.maxsize())
-        elif backend == "QT4Agg":
-            cfm.window.showMaximized()
+        maximize()
         
         # Show the plot
         plt.show()
@@ -175,7 +165,7 @@ def main_graphColoring():
     print(f"-> duration: ~ {sum(list_duration)}s")
 
     # Maximize the plot window
-    plt.get_current_fig_manager().window.state('zoomed')
+    maximize()
 
     # Show the plot
     plt.show()
