@@ -89,12 +89,6 @@ def main_cnf2graph2color():
                 cfm.resize(*cfm.window.maxsize())
         elif backend == "QT4Agg":
             cfm.window.showMaximized()
-        elif callable(getattr(cfm, "full_screen_toggle", None)):
-            if not getattr(cfm, "flag_is_max", None):
-                cfm.full_screen_toggle()
-                cfm.flag_is_max = True
-        else:
-            raise RuntimeError("plt_maximize() is not implemented for current backend:", backend)
         
         # Show the plot
         plt.show()
