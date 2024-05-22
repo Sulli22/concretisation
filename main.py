@@ -83,8 +83,6 @@ def main_cnf2graph2color():
             figmgr.window.state('zoomed')
         except:                
             figmgr.resize(*figmgr.window.maxsize())
-        #elif bkend == 'wxAgg':
-        #    figmgr.frame.Maximize(True)
         
         # Show the plot
         plt.show()
