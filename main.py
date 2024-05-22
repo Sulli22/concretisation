@@ -78,11 +78,10 @@ def main_cnf2graph2color():
 
         # Maximize the plot window
         figmgr = plt.get_current_fig_manager()
-        plt.switch_backend('TkAgg')
         try:
             figmgr.window.state('zoomed')
         except:                
-            figmgr.resize(*figmgr.window.maxsize())
+            figmgr.full_screen_toggle()
         
         # Show the plot
         plt.show()
