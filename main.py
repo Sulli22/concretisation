@@ -78,16 +78,13 @@ def main_cnf2graph2color():
 
         # Maximize the plot window
         figmgr = plt.get_current_fig_manager()
-        bkend = plt.get_backend()
-        if bkend == 'TkAgg':
-            try:
-                figmgr.window.state('zoomed')
-            except:
-                figmgr.resize(*figmgr.window.maxsize())
-        elif bkend == 'wxAgg':
-            figmgr.frame.Maximize(True)
-        else: # Qt4Agg, Qt5Agg, maybe others??
-            figmgr.window.showMaximized()
+        plt.switch_backend('TkAgg')
+        try:
+            figmgr.window.state('zoomed')
+        except:                
+            figmgr.resize(*figmgr.window.maxsize())
+        #elif bkend == 'wxAgg':
+        #    figmgr.frame.Maximize(True)
         
         # Show the plot
         plt.show()
