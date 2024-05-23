@@ -1,3 +1,4 @@
+
 :root{
     --color_1: #f8f5ea;
     --color_2: #778da9;
@@ -22,7 +23,8 @@
 
 body {
     margin: 0;
-    font-family: Trebuchet MS;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
 }
 
 a {
@@ -119,9 +121,6 @@ nav #logo_nav {
     margin-top: 20px
 }
 
-#eleve {
-    font-size: 20px;
-}
 @media screen and (max-width: 700px) {
     nav a h1 {
         display: none;
@@ -145,7 +144,28 @@ main p {
 main p a {
     color: var(--color_5);
 }
+/*CSS pour groupe.html*/
+#eleve {
+    font-size: 20px;
+}
 
+#logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#univ {
+    height: 8vw;
+    width: auto;
+    margin-right: 5vw;
+}
+
+#dlmi {
+    height: 6vw;
+    width: auto;
+    margin-left: 5vw;
+}
 /*----------------------------------------*/
 
 footer {
