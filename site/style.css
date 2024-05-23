@@ -44,7 +44,7 @@ header {
 
 header a {
     margin-right: 10px;
-    color: var(--color_5);
+    color: var(--color_1);
 }
 
 /*----------------------------------------*/
@@ -117,10 +117,6 @@ nav #logo_nav {
     margin: 0 10px;
 }
 
-.bibliotheque {
-    margin-top: 20px
-}
-
 @media screen and (max-width: 700px) {
     nav a h1 {
         display: none;
@@ -144,10 +140,33 @@ main p {
 main p a {
     color: var(--color_5);
 }
-/*CSS pour groupe.html*/
-#eleve {
-    font-size: 20px;
+/* CSS pour developpement.html */
+
+.bibliotheque {
+    margin-top: 20px
 }
+
+li a {
+    color: black;
+}
+
+/* CSS pour groupe.html */
+
+#icon {
+    font-size: 20px;
+    margin-right: 5px;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+.groupe {
+    border: black 2px solid;
+    border-radius: 10px ;    
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
 
 #logo {
     display: flex;
