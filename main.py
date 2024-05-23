@@ -1,11 +1,12 @@
 #### imports
 
-import time
 import os
-from platform import system
+import time
 import networkx as nx
-import matplotlib.pyplot as plt
+from platform import system
 from pysat.formula import CNF
+import matplotlib.pyplot as plt
+
 from cnfToGraph import *
 from graphColoring import *
 
@@ -30,30 +31,25 @@ def maximize():
 def main_cnf2graph2color():
     """ Generate the graph corresponding to the cnf formula
     and uses a coloring algorithm based on user input """
-    print("----------------------------------------------------------")
     # Prompt for algorithm choice
+    print("-"*70)
     print("Select an algorithm:")
     print("1 - DSATUR")
     print("2 - CNF")
     print("3 - PYCSP")
     rep = input("Your choice: ")
-    dict_funct = {
-        '1': get_list_colors_DSATUR, 
-        '2': get_list_colors_CNF, 
-        '3': get_list_colors_CSP
-    }
-    while rep not in dict_funct:
+    while rep not in ['1', '2', '3']:
         rep = input("Invalid choice. Please select 1, 2, or 3: ")
-    print("----------------------------------------------------------")
-    print("cnf files: ")
-    for file in os.listdir("./cnf_formulas"):
-        print("\t", file)
-    print("----------------------------------------------------------")
-    
+
     # Prompt for file name and check existence
+    print('-'*70)
+    print("cnf files: \n\t {nb of vars}v{nb of clauses}c.cnf")
+    for file in os.listdir("./cnf_formulas"):
+        print(f"\t {file}")
     formula_file = input("Enter the file name (without .cnf extension): ")
     while not os.path.isfile(f"./cnf_formulas/{formula_file}.cnf"):
         formula_file = input("File not found. Enter a valid file name: ")
+    print('-'*70)
     
     # start chrono
     t1 = time.time()
@@ -69,9 +65,11 @@ def main_cnf2graph2color():
     t1 = time.time()
     # Get list of colors using the selected algorithm
     if rep == '1':
-        list_colors = dict_funct[rep](G, cnf_formula)
+        list_colors = get_list_colors_DSATUR(G, cnf_formula)
+    elif rep == '2':
+        list_colors = get_list_colors_CNF(G, True)
     else:
-        list_colors = dict_funct[rep](G, True)
+        list_colors = get_list_colors_CSP(G, True)
     # end chrono
     t2 = time.time()    
     list_duration.append(t2-t1)
@@ -91,6 +89,7 @@ def main_cnf2graph2color():
                       len(n.split('∨')) != 2 else '') for n in G.nodes}
         
         # Draw the graph
+        plt.title(f"{len(G)} nodes and {len(G.edges)} edges")
         nx.draw_networkx(G, node_color=list_colors, pos=pos, labels=labels, \
                          edge_color='grey')
         # end chrono
@@ -115,7 +114,7 @@ def main_cnf2graph2color():
 
 def main_graphColoring():
     """ Generate and color a random graph based on user input """
-    print("----------------------------------------------------------")
+    print("-"*70)
     # Prompt for the coloring algorithm choice
     print("Select a coloring algorithm:")
     print("1 - CNF")
@@ -124,12 +123,21 @@ def main_graphColoring():
     dict_funct = {'1': get_list_colors_CNF, '2': get_list_colors_CSP}
     while rep not in dict_funct:
         rep = input("Invalid choice. Please select 1 or 2: ")
-    print("----------------------------------------------------------")
+    print("-"*70)
 
     # Prompt for the number of nodes and edges
-    nb_nodes = int(input("Enter the number of nodes: "))
-    nb_edges = int(input("Enter the number of edges: "))
-    print("----------------------------------------------------------")
+    nb_nodes = None; nb_edges = None
+    while nb_nodes is None:
+        try:
+            nb_nodes = int(input("Enter the number of nodes: "))
+        except:
+            print("Unvalid number,")
+    while nb_edges is None:
+        try:
+            nb_edges = int(input("Enter the number of edges: "))
+        except:
+            print("Unvalid number,")
+    print("-"*70)
 
     # start chrono
     t1 = time.time()
@@ -144,7 +152,7 @@ def main_graphColoring():
     # Plot the uncolored graph
     t1 = time.time()
     plt.subplot(121)
-    plt.title("Uncolored Graph")
+    plt.title(f"Uncolored Graph: {nb_nodes} nodes and {nb_edges} edges")
     nx.draw_networkx(G, pos=pos)
     t2 = time.time()    
     list_duration.append(t2-t1)
@@ -187,18 +195,18 @@ def main_graphColoring():
 def main():
     """ Main function that runs the program """
     # Display the menu
-    os.system('cls' if os.name == 'nt' else 'clear')
+    print("-"*70)
+    print("Select :")
     print("1 - Get the graph corresponding to a CNF formula and colour it")
     print("2 - Colour a graph without greedy algorithm")
 
     # Get the user's choice
     choice = input("Your choice: ")
     while choice not in ['1', '2']:
-        choice = input("Invalid choice. Please enter a valid option: ")
+        choice = input("Invalid choice. Please enter 1 or 2: ")
 
     # Handle the user's choice
-    dict_funct = {'1': main_cnf2graph2color, '2': main_graphColoring}
-    dict_funct[choice]()
+    {'1': main_cnf2graph2color, '2': main_graphColoring}[choice]()
 
     # Remove files created by pycsp
     for f in os.listdir():
