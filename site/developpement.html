@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Développement</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="./img/logo.ico">
     <script src="https://kit.fontawesome.com/67c3e8d607.js" crossorigin="anonymous"></script>
+
 </head>
+
 <body>
+
     <header>
         <a href="mailto:sullivan.driant@etud.univ-angers.fr,masian.huneau@etud.univ-angers.fr">Nous contacter</a>
     </header>
+
     <nav>
         <a id="home_link" href="accueil.html">
             <i id="house_icon" class="fa-solid fa-house-chimney"></i><h1>Formules booléennes et coloration de graphes</h1>
@@ -23,28 +29,60 @@
         </div>
         <img src="./img/logo.png" alt="logo" id="logo_nav">
     </nav>
+
     <main>
+
+        <h2>Programmes</h2>
+        <div id="box_list_prog">
+            <h3>main.py</h3>
+            <div class="box_funct"></div>
+            <h3>cnfToGraph.py</h3>
+            <div class="box_funct"></div>
+            <h3>graphColoring.py</h3>
+            <div class="box_funct"></div>
+        </div>
+
         <h2>Bibliothèques</h2>
-        <ul> <!--Début de la liste des bibliothèques-->
-            <li class="bibliotheque"><a href="https://networkx.org/">networkx</a> : Permet de manipuler les graphes. <!--Début networkx-->
-                <ul> <!--Début liste des fonctions de networkx-->
-                    <li>Graph() : Initialise le graphe sans noeuds et arêtes</li>
-                    <li>gnm_random_graph() : On peut créer des graphes aléatoires selon le nombre de noeuds 
-                        et d'arêtes</li>
-                    <li>relabel_nodes() : On renomme les noeuds. Celà nous permet de passer des entiers en chaîne de caractères puis travailler avec les noeuds plus facilement</li>
-                    <li>random_layout() : Positionne aléatoirement les noeuds dans l'espace</li>
-                    <li>draw_networkx() : On peut dessiner le graphe avec les caractéristiques que l'on souhaite (couleur des noeuds, taille de la police,avec ou sans label...)</li>
-                </ul> <!--Fin liste des fonctions de networkx-->
-            </li> <!--Fin networkx-->
-            
-            <li class="bibliotheque"><a href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot</a> : Permet d'afficher des graphiques. <!--Début matplotlib.pyplot-->
-                <ul>
-                    <li>subplot() : Fractionne la fenêtre</li>
-                    <li>title() : Met un titre au graphe</li>
-                    <li>show() : Affiche les graphes</li>
+        <ul> <!-- Début de la liste des bibliothèques -->
+
+            <li class="bibliotheque"> <!-- Début networkx -->
+                <a class="petit_lien" href="https://networkx.org/" target="_blank">
+                NetworkX</a>: Permet de créer, manipuler et étudier des graphes 
+                <ul> 
+                    <li>Graph(): Initialise un graphe vide (sans noeuds ni arêtes)</li>
+                    <li>.add_edges_from(): Ajoute les arêtes (et noeuds) passés en paramètres</li>
+                    <li>gnm_random_graph(): Retourne un graphe choisi uniformément au hasard dans l'ensemble de tous les graphes avec n noeuds et m arêtes</li>
+                    <li>relabel_nodes(): Retourne une copie d'un graph avec les noeuds renomés selon un dictionnaire. Utile pour manipuler des graphes dont les noms des noeuds sont des chaînes de caractères</li>
+                    <li>random_layout(): Retourne un positionnement aléatoire des noeuds</li>
+                    <li>draw_networkx(): Dessine un graphe en prenant en compte plusieurs paramètres (couleur des noeuds, nom des noeuds, couleur des arêtes, ...)</li>
                 </ul>
-            </li> <!--Frin matplotlib.pyplot-->
+            </li> <!-- Fin networkx -->
+            
+            <li class="bibliotheque"> <!-- Début matplotlib.pyplot -->
+                <a class="petit_lien" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html" target="_blank">
+                matplotlib.pyplot</a>: Permet d'afficher les graphiques de la bibliotheque NetworkX 
+                <ul> 
+                    <li>subplot(): Fractionne la fenêtre</li>
+                    <li>title(): Ajoute un Titre</li>
+                    <li>show(): Affiche la fenêtre</li>
+                    <li>.get_backend() et .get_current_fig_manager(): permet de gérer la maximisation de la taille de la fenêtre</li>
+                </ul>
+            </li> <!-- Fin matplotlib.pyplot -->
            
+            <li class="bibliotheque"> <!-- Début pysat -->
+                <a class="petit_lien" href="https://pysathq.github.io/docs/html/" target="_blank">
+                    PySat</a>: Permet d'étudier les problèmes de satisfaction SAT (modules formula et solvers) 
+                <ul> 
+                    <li>CNF(): Initialise une instance CNF (vide ou à partir d'un fichier de type cnf)</li>
+                    <li>Solver(): Permet de résoudre une formule cnf</li>
+                    <li>.solve(): Indique si la formule est satisfiable</li>
+                    <li>.get_model(): Retorurne les valeurs satisfiants la formule</li>
+                </ul> 
+            </li> <!-- Fin pysat -->
+
+            <li class="bibliotheque"> <!-- Début pycsp -->
+                <a class="petit_lien" href="https://www.pycsp.org/" target="_blank">
+                    PyCSP</a>: Permet d'étudier les problèmes satisfaction de contraintes
             <li class="bibliotheque"><a href="https://pysathq.github.io/docs/html/">pysat</a> : Permet d'étudier les problèmes de satisfaction SAT
                 <ul> <!------------Début modules de pysat------------>
                     <li>formula : Un module de pysat pour travailler facilement avec des formules booléennes
@@ -63,19 +101,25 @@
 
             <li class="bibliotheque"><a href="https://www.pycsp.org/">pycsp3</a> : Permet de mettre des contraintes sur des variables
                 <ul>
-                    <li>VarArray() : Structure de données à la quelle on dit la taille et le domaine de définition des valeurs de la structure</li>
-                    <li>satisfy() : Permet d'entrer toutes les contraintes que l'on souhaite pour la structure</li>
-                    <li>solve() : Vérifie si la structure de donnée est satisfiable par rapport aux contraines données dans satisfy()</li>
-                    <li>values() : Pour obtenir les valeurs de la base de donnée</li>
+                    <li>VarArray(): Structure de données des variables</li>
+                    <li>satisfy(): Permet de poser les contraintes sur les variables</li>
+                    <li>solve() et SAT: Vérifie si la structure de donnée est satisfiable par rapport aux contraines données dans satisfy()</li>
+                    <li>values(): Retourne les valeurs des variables satifiants les contraintes</li>
                 </ul>
-            </li>
-        </ul> <!--Fin de la liste des bibliothèques-->
+            </li> <!-- Fin pycsp -->
+
+        </ul> <!-- Fin de la liste des bibliothèques -->
+
+        <h2>Limites</h2>
     </main>
+
     <footer>
+        <!-- logo et lien github -->
         <a href="https://github.com/Sulli22/concretisation" target="_blank">
             <img src="./img/github.png" alt="github logo" id="github">
         </a>
         <p>copyright © 2024</p>
     </footer>
+
 </body>
 </html>
