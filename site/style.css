@@ -152,7 +152,7 @@ li a {
 
 /* CSS pour groupe.html */
 
-#icon {
+#icon_1, #icon_2, #icon_3 {
     font-size: 20px;
     margin-right: 5px;
     margin-left: 2px;
@@ -165,8 +165,6 @@ li a {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-
 
 #logo {
     display: flex;
