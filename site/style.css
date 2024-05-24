@@ -17,13 +17,15 @@
     --main_padding_w: calc(100vw/8);
     --main_padding_h: 70px;
 
+    --heigth_logo_gp: calc(var(--footer_height)/2)
+
 }
 
-/*----------------------------------------*/
+/*-- global -----------------------------------------------*/
 
 body {
     margin: 0;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
 }
 
@@ -31,7 +33,7 @@ a {
     text-decoration: none;
 }
 
-/*----------------------------------------*/
+/*-- Header ----------------------------------------------*/
 
 header {
     margin: 0;
@@ -45,9 +47,10 @@ header {
 header a {
     margin-right: 10px;
     color: var(--color_1);
+    font-weight: bold;
 }
 
-/*----------------------------------------*/
+/*-- Nav -------------------------------------------------*/
 
 
 nav {
@@ -107,7 +110,6 @@ nav #box_links a:hover::after {
     transform-origin: bottom left;
 }
 
-
 nav #sep_nav{
     width: calc(100vw*0.05);
 }
@@ -117,18 +119,45 @@ nav #logo_nav {
     margin: 0 10px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     nav a h1 {
         display: none;
     }
   }
 
-/*----------------------------------------*/
+/*-- Main ------------------------------------------------*/
 
 main {
     background-color: var(--color_1);
     padding: var(--main_padding_h) var(--main_padding_w);
 }
+
+.petit_lien {
+    position: relative;
+    padding-bottom: 2px;
+    color: var(--color_5);
+}
+
+.petit_lien::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color_5);
+    transform-origin: bottom right;
+    transition: transform 0.4s ease-out;
+    color: var(--color_5);
+}
+
+.petit_lien:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/*-- Accueil ---------------------------------------------*/
 
 main p {
     margin: 0px;
@@ -140,52 +169,77 @@ main p {
 main p a {
     color: var(--color_5);
 }
-/* CSS pour developpement.html */
 
-.bibliotheque {
-    margin-top: 20px
+main ul {
+    margin-left: calc(var(--main_padding_w)/2);
 }
 
-li a {
-    color: black;
-}
-
-/* CSS pour groupe.html */
-
-#icon {
-    font-size: 20px;
-    margin-right: 5px;
-    margin-left: 2px;
-    margin-top: 2px;
-}
-
-.groupe {
-    border: black 2px solid;
-    border-radius: 10px ;    
-    margin-top: 10px;
+main li {
     margin-bottom: 10px;
 }
 
+/*-- Developpement ---------------------------------------*/
 
+main #box_list_prog {
+    border: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-#logo {
+main .box_funct {
+    border: solid
+}
+
+main .bibliotheque {
+    margin-top: 20px
+}
+
+main .bibliotheque a {
+    color: var(--color_5);
+}
+
+/*-- Groupe ----------------------------------------------*/
+
+main #p_gp {
+    margin-bottom: calc(var(--main_padding_h)/2);
+    font-size: 1.1em;
+}
+
+main .box_list_gp {
+    border: var(--color_3) 2px solid;
+    border-radius: 10px ;    
+    margin: calc(var(--footer_height)/3) 0px;
+    padding: 10px;
+}
+
+main .box_list_gp p {
+    font-size: 1.1em;
+}
+
+main .icon_gp {
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+main #box_logos {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: var(--main_padding_h);
 }
 
-#univ {
-    height: 8vw;
-    width: auto;
+main #logo_ua {
+    height: var(--heigth_logo_gp);
     margin-right: 5vw;
 }
 
-#dlmi {
-    height: 6vw;
-    width: auto;
+main #logo_dl {
+    height: var(--heigth_logo_gp);
     margin-left: 5vw;
 }
-/*----------------------------------------*/
+
+/*-- Footer ----------------------------------------------*/
 
 footer {
     background-color: var(--color_4);
