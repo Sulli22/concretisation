@@ -17,8 +17,9 @@
     --main_padding_w: calc(100vw/8);
     --main_padding_h: 70px;
 
-    --heigth_logo_gp: calc(var(--footer_height)/2)
+    --funct_w: 400px;
 
+    --heigth_logo_gp: calc(var(--footer_height)/2)
 }
 
 /*-- global -----------------------------------------------*/
@@ -31,6 +32,14 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.tabu {
+    padding-left: 5%;
 }
 
 /*-- Header ----------------------------------------------*/
@@ -50,8 +59,11 @@ header a {
     font-weight: bold;
 }
 
-/*-- Nav -------------------------------------------------*/
+h2, h3 {
+    color: var(--color_4)
+}
 
+/*-- Nav -------------------------------------------------*/
 
 nav {
     margin: 0;
@@ -123,7 +135,7 @@ nav #logo_nav {
     nav a h1 {
         display: none;
     }
-  }
+}
 
 /*-- Main ------------------------------------------------*/
 
@@ -144,8 +156,7 @@ main {
     width: 100%;
     transform: scaleX(0);
     height: 2px;
-    bottom: 0;
-    left: 0;
+    bottom: 0; left: 0;
     background-color: var(--color_5);
     transform-origin: bottom right;
     transition: transform 0.4s ease-out;
@@ -159,45 +170,78 @@ main {
 
 /*-- Accueil ---------------------------------------------*/
 
-main p {
-    margin: 0px;
+.p_acc {
+    margin: 0;
     color: var(--color_5);
     margin-bottom: 10px;
     text-align: justify;
 }
 
-main p a {
-    color: var(--color_5);
+/*-- Développement ---------------------------------------*/
+
+#box_list_prog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-main ul {
-    margin-left: calc(var(--main_padding_w)/2);
+#box_list_prog .box_functs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 0 30px;
 }
 
-li a {
-    color: black;
+#box_list_prog .box_functs .funct {
+    width: var(--funct_w);
+    padding: 0 10px;
 }
 
-/* CSS pour groupe.html */
-
-#icon_1, #icon_2, #icon_3 {
-    font-size: 20px;
-    margin-right: 5px;
-    margin-left: 2px;
-    margin-top: 2px;
+#box_list_prog .box_functs .funct p {
+    margin: 0;
 }
+
+#box_list_prog .box_functs .funct .pr {
+    padding: 2% 0;
+}
+
+.bibliotheque {
+    padding-bottom: calc(var(--main_padding_h)/3);
+}
+
+.bibliotheque .petit_lien {
+    font-weight: bold;
+}
+
+.bibliotheque ul li {
+    padding: 0.5%;
+}
+
 /*-- Groupe ----------------------------------------------*/
 
-main #p_gp {
+#p_gp {
     margin-bottom: calc(var(--main_padding_h)/2);
     font-size: 1.1em;
 }
 
 .groupe {
-    border: black 2px solid;
-    border-radius: 10px ;    
-    margin-top: 10px;
-    margin-bottom: 10px;
+    border: var(--color_3) 2px solid;
+    border-radius: 10px;
+    margin: calc(var(--main_padding_h)/2) 0;    
+}
+
+.groupe p {
+    margin-left: calc(var(--main_padding_w)/8);
+}
+
+.groupe .icon_gp {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.groupe ul {
+    margin-left: calc(var(--main_padding_w)/3);
 }
 
 #box_logos {
@@ -207,12 +251,12 @@ main #p_gp {
     margin-top: var(--main_padding_h);
 }
 
-main #logo_ua {
+#box_logos #logo_ua {
     height: var(--heigth_logo_gp);
     margin-right: 5vw;
 }
 
-main #logo_dl {
+#box_logos #logo_dl {
     height: var(--heigth_logo_gp);
     margin-left: 5vw;
 }

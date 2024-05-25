@@ -34,12 +34,141 @@
 
         <h2>Programmes</h2>
         <div id="box_list_prog">
+
             <h3>main.py</h3>
-            <div class="box_funct"></div>
+            <div class="box_functs">
+                <div class="funct">
+                    <h4>main():</h4>
+                    <p>Main function that runs the program</p>
+                </div>
+                <div class="funct">
+                    <h4>main_cnf2graph2color():</h4>
+                    <p>Generate the graph corresponding to the cnf formula and uses a coloring algorithm based on user input</p>
+                </div>
+                <div class="funct">
+                    <h4>main_graphColoring():</h4>
+                    <p>Generate and color a random graph based on user input</p>
+                </div>
+                <div class="funct">
+                    <h4>maximize():</h4>
+                    <p>Maximize the plot window</p>
+                </div>
+            </div>
+
             <h3>cnfToGraph.py</h3>
-            <div class="box_funct"></div>
+            <div class="box_functs">
+                <div class="funct">
+                    <h4>get_graph_base(pos, nb_var):</h4>
+                    <p>Returns a graph that will be used to implement the clauses</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>nb_var: int</p>
+                    <p class="tabu">number of variables required</p>
+                    <p>pos: dict</p>
+                    <p class="tabu">dict that associates nodes to their position</p>
+                    <p class="underline pr">Returns</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph that contains ``nb_vars`` 3-cliques and one for our True, False and Neutral references</p>
+                </div>
+                <div class="funct">
+                    <h4>add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):</h4>
+                    <p>Adds a disjunction clause with input variables x1, x2, x3 to the graph</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph use to implement clauses</p>
+                    <p>nb_clauses: int</p>
+                    <p class="tabu">total number of clauses</p>
+                    <p>clause_nb: int</p>
+                    <p class="tabu">clause number in the cnf formula</p>
+                    <p>x1, x2, x3 : int</p>
+                    <p class="tabu">clause input variable names</p>
+                    <p>pos: dict</p>
+                    <p class="tabu">dict that associates nodes to their position</p>
+                </div>
+                <div class="funct">
+                    <h4>get_graph_from_cnf(cnf_formula):</h4>
+                    <p>Returns the graph corresponding to the cnf formula</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>cnf_formula: pysat.formula CNF()</p>
+                    <p class="tabu">list of 3-uplet of literals (int), each corresonding to a clause</p>
+                    <p class="underline pr">Returns</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph that contains variables and clauses</p>
+                    <p>pos: dict</p>
+                    <p class="tabu">dict that associates nodes to their position</p>
+                </div>
+            </div>
+
             <h3>graphColoring.py</h3>
-            <div class="box_funct"></div>
+            <div class="box_functs">
+                <div class="funct">
+                    <h4>relabel_nodes(G):</h4>
+                    <p>Relabels the nodes of a graph with integer labels</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G : Networkx graph</p>
+                    <p class="tabu">The graph to be relabeled</p>
+                    <p class="underline pr">Returns</p>
+                    <p>G_copy : Networkx graph</p>
+                    <p class="tabu">A copy of the graph with nodes relabeled with integers</p>
+                </div>
+                <div class="funct">
+                    <h4>DSATUR(G, colors):</h4>
+                    <p>Iterates over all the nodes of G in "saturation order" ("DSATUR")</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G: NetworkX graph</p>
+                    <p class="tabu">graph we want to have the saturation order</p>
+                    <p>colors: dict</p>
+                    <p class="tabu">dict associates nodes of G to colors, for those nodes that have already been colored</p>
+                    <p class="underline pr">Returns</p>
+                    <p>unamed: generator object</p>
+                </div>
+                <div class="funct">
+                    <h4>get_list_colors_DSATUR(G, cnf_formula):</h4>
+                    <p>Returns a list of colors in the order of the graph nodes respecting the coloring rules</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph that we want to color</p>
+                    <p>colors: dict</p>
+                    <p class="tabu">dict associates nodes of G to colors, for those nodes that have already been colored</p>
+                    <p class="underline pr">Returns</p>
+                    <p>unamed: list or bool</p>
+                    <p class="tabu">list of color (str) in order of G nodes or False if no coloring</p>
+                </div>
+                <div class="funct">
+                    <h4>get_cnf_from_graph(G):</h4>
+                    <p>Returns a cnf formula that is satisfiable if the graph is colorable</p>
+                    <p>literals names: 1i = node i is green, 2i = node i is red, 3i = node i is blue</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph that we want to color</p>
+                    <p class="underline pr">Returns</p>
+                    <p>cnf: pysat.formula.CNF</p>
+                    <p class="tabu">cnf formula</p>
+                </div>
+                <div class="funct">
+                    <h4>get_list_colors_CNF(G, relabel_need):</h4>
+                    <p>Returns a list of colors in the order of the graph nodes, respecting the coloring rules</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph taht we want to color</p>
+                    <p>relabel_need: bool</p>
+                    <p class="tabu">does the G have to be copy with new labels</p>
+                    <p class="underline pr">Returns</p>
+                    <p>unamed: list or bool</p>
+                    <p class="tabu">list of color (str) in order of G nodes or False if no coloring</p>
+                </div>
+                <div class="funct">
+                    <h4>get_list_colors_CSP(G, relabel_need):</h4>
+                    <p>Returns a list of colors in the order of the graph nodes, respecting the coloring rules</p>
+                    <p class="underline pr">Parameters</p>
+                    <p>G: Networkx graph</p>
+                    <p class="tabu">graph taht we want to color</p>
+                    <p>relabel_need: bool</p>
+                    <p class="tabu">does the G have to be copy with new labels</p>
+                    <p class="underline pr">Returns</p>
+                    <p>unamed: list or bool</p>
+                    <p class="tabu">list of color (str) in order of G nodes or False if no coloring</p>
+                </div>
+            </div>
         </div>
 
         <h2>Bibliothèques</h2>
@@ -83,23 +212,6 @@
             <li class="bibliotheque"> <!-- Début pycsp -->
                 <a class="petit_lien" href="https://www.pycsp.org/" target="_blank">
                     PyCSP</a>: Permet d'étudier les problèmes satisfaction de contraintes
-            <li class="bibliotheque"><a href="https://pysathq.github.io/docs/html/">pysat</a> : Permet d'étudier les problèmes de satisfaction SAT
-                <ul> <!------------Début modules de pysat------------>
-                    <li>formula : Un module de pysat pour travailler facilement avec des formules booléennes
-                        <!--Fonction utilisé de pysat.formula-->
-                        <ul><li>CNF() : Permet d'étudier des instances CNF</li></ul>
-                         <!--Fin fonction .formula-->
-                    </li>        
-                    
-                    <li>solvers : Un module de pysat pour accéder à différents solveur de problème SAT
-                        <!--Fonction de .solvers-->
-                        <ul><li>Solver() : Nous permet de voir si la formule boolénnes est satisfiable</li></ul>
-                        <!--Fonction de .solvers-->
-                    </li>
-                </ul><!-----------Fin modules de pysat----------->
-            </li>
-
-            <li class="bibliotheque"><a href="https://www.pycsp.org/">pycsp3</a> : Permet de mettre des contraintes sur des variables
                 <ul>
                     <li>VarArray(): Structure de données des variables</li>
                     <li>satisfy(): Permet de poser les contraintes sur les variables</li>
