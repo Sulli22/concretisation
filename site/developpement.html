@@ -35,29 +35,29 @@
         <h2>Programmes</h2>
         <div id="box_list_prog">
 
-            <h3>main.py</h3>
+            <h3>main.py</h3> <!-- main.py -->
             <div class="box_functs">
-                <div class="funct">
+                <div class="funct"> <!-- main() -->
                     <h4>main():</h4>
                     <p>Main function that runs the program</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- main_cnf2graph2color() -->
                     <h4>main_cnf2graph2color():</h4>
                     <p>Generate the graph corresponding to the cnf formula and uses a coloring algorithm based on user input</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- main_graphColoring() -->
                     <h4>main_graphColoring():</h4>
                     <p>Generate and color a random graph based on user input</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- maximize() -->
                     <h4>maximize():</h4>
                     <p>Maximize the plot window</p>
                 </div>
             </div>
 
-            <h3>cnfToGraph.py</h3>
+            <h3>cnfToGraph.py</h3> <!-- cnfToGraph.py -->
             <div class="box_functs">
-                <div class="funct">
+                <div class="funct"> <!-- get_graph_base() -->
                     <h4>get_graph_base(pos, nb_var):</h4>
                     <p>Returns a graph that will be used to implement the clauses</p>
                     <p class="underline pr">Parameters</p>
@@ -69,7 +69,7 @@
                     <p>G: Networkx graph</p>
                     <p class="tabu">graph that contains ``nb_vars`` 3-cliques and one for our True, False and Neutral references</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- add_clause() -->
                     <h4>add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):</h4>
                     <p>Adds a disjunction clause with input variables x1, x2, x3 to the graph</p>
                     <p class="underline pr">Parameters</p>
@@ -84,8 +84,8 @@
                     <p>pos: dict</p>
                     <p class="tabu">dict that associates nodes to their position</p>
                 </div>
-                <div class="funct">
-                    <h4>get_graph_from_cnf(cnf_formula):</h4>
+                <div class="funct"> <!-- get_graph_from_cnf() -->
+                    <h4>get_graph_from_cnf (cnf_formula):</h4>
                     <p>Returns the graph corresponding to the cnf formula</p>
                     <p class="underline pr">Parameters</p>
                     <p>cnf_formula: pysat.formula CNF()</p>
@@ -98,9 +98,9 @@
                 </div>
             </div>
 
-            <h3>graphColoring.py</h3>
+            <h3>graphColoring.py</h3> <!-- graphColoring.py -->
             <div class="box_functs">
-                <div class="funct">
+                <div class="funct"> <!-- relabel_nodes() -->
                     <h4>relabel_nodes(G):</h4>
                     <p>Relabels the nodes of a graph with integer labels</p>
                     <p class="underline pr">Parameters</p>
@@ -110,7 +110,7 @@
                     <p>G_copy : Networkx graph</p>
                     <p class="tabu">A copy of the graph with nodes relabeled with integers</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- DSATUR() -->
                     <h4>DSATUR(G, colors):</h4>
                     <p>Iterates over all the nodes of G in "saturation order" ("DSATUR")</p>
                     <p class="underline pr">Parameters</p>
@@ -121,7 +121,7 @@
                     <p class="underline pr">Returns</p>
                     <p>unamed: generator object</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- get_list_colors_DSATUR() -->
                     <h4>get_list_colors_DSATUR(G, cnf_formula):</h4>
                     <p>Returns a list of colors in the order of the graph nodes respecting the coloring rules</p>
                     <p class="underline pr">Parameters</p>
@@ -133,7 +133,7 @@
                     <p>unamed: list or bool</p>
                     <p class="tabu">list of color (str) in order of G nodes or False if no coloring</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- get_cnf_from_graph() -->
                     <h4>get_cnf_from_graph(G):</h4>
                     <p>Returns a cnf formula that is satisfiable if the graph is colorable</p>
                     <p>literals names: 1i = node i is green, 2i = node i is red, 3i = node i is blue</p>
@@ -144,7 +144,7 @@
                     <p>cnf: pysat.formula.CNF</p>
                     <p class="tabu">cnf formula</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- get_list_colors_CNF() -->
                     <h4>get_list_colors_CNF(G, relabel_need):</h4>
                     <p>Returns a list of colors in the order of the graph nodes, respecting the coloring rules</p>
                     <p class="underline pr">Parameters</p>
@@ -156,7 +156,7 @@
                     <p>unamed: list or bool</p>
                     <p class="tabu">list of color (str) in order of G nodes or False if no coloring</p>
                 </div>
-                <div class="funct">
+                <div class="funct"> <!-- get_list_colors_CSP() -->
                     <h4>get_list_colors_CSP(G, relabel_need):</h4>
                     <p>Returns a list of colors in the order of the graph nodes, respecting the coloring rules</p>
                     <p class="underline pr">Parameters</p>

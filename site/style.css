@@ -17,7 +17,7 @@
     --main_padding_w: calc(100vw/8);
     --main_padding_h: 70px;
 
-    --funct_w: 400px;
+    --funct_w: 380px;
 
     --heigth_logo_gp: calc(var(--footer_height)/2)
 }
@@ -190,12 +190,15 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 10px 0 30px;
+    margin: 10px 0 30px 0;
 }
 
 #box_list_prog .box_functs .funct {
     width: var(--funct_w);
+    margin: 10px;
     padding: 0 10px;
+    border: solid 2px var(--color_3);
+    border-radius: 10px;
 }
 
 #box_list_prog .box_functs .funct p {
