@@ -221,6 +221,14 @@ main {
     padding: 0.5%;
 }
 
+.funct {
+    text-align: center;
+}
+
+.funct p:last-child{
+    padding-bottom: 5%;
+}
+
 /*-- Groupe ----------------------------------------------*/
 
 #p_gp {
