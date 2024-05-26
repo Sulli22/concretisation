@@ -36,7 +36,7 @@ def main_cnf2graph2color():
     print("Select an algorithm:")
     print("1 - DSATUR")
     print("2 - CNF")
-    print("3 - PYCSP")
+    print("3 - CSP")
     rep = input("Your choice: ")
     while rep not in ['1', '2', '3']:
         rep = input("Invalid choice. Please select 1, 2, or 3: ")
@@ -118,7 +118,7 @@ def main_graphColoring():
     # Prompt for the coloring algorithm choice
     print("Select a coloring algorithm:")
     print("1 - CNF")
-    print("2 - PYCSP")
+    print("2 - CSP")
     rep = input("Your choice: ")
     dict_funct = {'1': get_list_colors_CNF, '2': get_list_colors_CSP}
     while rep not in dict_funct:
