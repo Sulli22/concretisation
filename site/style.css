@@ -74,36 +74,36 @@ nav {
     height: var(--nav_height);
 }
 
-nav #home_link {
+#home_link {
     margin-left: var(--main_padding_w);
     display: flex;
     align-items: center;
 }
 
-nav #home_link #house_icon {
+#house_icon {
     margin-right: 10px;
     font-size: calc(var(--font_size_nav)*1.5);
     color: var(--color_5);
 }
 
-nav #home_link h1 {
+#home_link h1 {
     font-size: var(--font_size_nav);
     margin: 0;
     color: var(--color_4);
 }
 
-nav #box_links {
+#box_links {
     display: flex;
 }
 
-nav #box_links a {
+#box_links a {
     font-size: var(--font_size_nav);
     color: var(--color_4);
     position: relative;
     padding-bottom: 2px;
 }
 
-nav #box_links a::after {
+#box_links a::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -117,16 +117,16 @@ nav #box_links a::after {
     color: var(--color_4);
 }
 
-nav #box_links a:hover::after {
+#box_links a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
 
-nav #sep_nav{
+#sep_nav{
     width: calc(100vw*0.05);
 }
 
-nav #logo_nav {
+#logo_nav {
     height: var(--heigth_logo_nav);
     margin: 0 10px;
 }
@@ -185,7 +185,7 @@ main {
     align-items: center;
 }
 
-#box_list_prog .box_functs {
+.box_functs {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -193,19 +193,19 @@ main {
     margin: 10px 0 30px 0;
 }
 
-#box_list_prog .box_functs .funct {
+.funct {
     width: var(--funct_w);
     margin: 10px;
-    padding: 0 10px;
+    padding: 0 10px 20px 10px;
     border: solid 2px var(--color_3);
     border-radius: 10px;
 }
 
-#box_list_prog .box_functs .funct p {
+.funct p {
     margin: 0;
 }
 
-#box_list_prog .box_functs .funct .pr {
+.pr {
     padding: 2% 0;
 }
 
@@ -219,14 +219,6 @@ main {
 
 .bibliotheque ul li {
     padding: 0.5%;
-}
-
-.funct {
-    text-align: center;
-}
-
-.funct p:last-child{
-    padding-bottom: 5%;
 }
 
 /*-- Groupe ----------------------------------------------*/
@@ -284,7 +276,7 @@ footer {
     height: var(--footer_height);
 }
 
-footer a #github {
+#github {
     height: calc(var(--footer_height)/3);
     margin: 20px;
 }
