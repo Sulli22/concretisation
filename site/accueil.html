@@ -32,35 +32,67 @@
 
     <main>
 
+        <!-- Partie projet et sujet -->
         <h2>Projet</h2>
         <p class="p_acc">
-            L'objectif de ce projet est de résoudre des formules booléennes, par exemple (a ou b ou c) et
-            (non a ou non c), en utilisant la coloration d'un graphe. Nous commencerons par des formules
-            simples puis l'objectif sera de transformer une formule booléenne plus complexe (exprimée
-            sous une certaine forme standard) en un graphe. La coloration de ce graphe nous permettra
-            de montrer si cette formule est vraie ou fausse en fonction des valeurs de ses variables.
-            La première étape consistera à étudier la manière de coder par un graphe l'opérateur logique
-            OU. Ce composant de base pourra nous servir à résoudre par exemple des formules de la
-            forme (a ou b ou c).
-        </p>
-        <p class="p_acc">
-            La deuxième étape consistera à étudier le problème de satisfiabilité en logique propositionnelle
-            (SAT), qui est l'un des problèmes de référence en informatique. Les formules considérées sont
-            des conjonction (et) de disjonction (ou). Par exemple : (a ou b ou non(c)) et (non(a) ou non(b)
-            ou c).
-        </p>
-        <p class="p_acc">
-            Cette formule peut être rendue vraie (par exemple si a est faux, b est vrai et c est faux).
-            En partant de la première étape, on trouvera un moyen de transformer une formule en un
-            graphe, tel que si l'on trouve une 3-coloration propre du graphe, la formule est vraie.
-            La troisième étape consistera à utiliser également pycsp3 pour résoudre les formules, via
-            différents codages et trouver des colorations des graphes. Ceci constituera une autre
-            approche de résolution du problème.
+            L'objectif premier de ce projet est de montrer l'équivalence entre les problèmes de satisfiabilité en logique propositionnelle (SAT) et le problème de coloration de graphe. En d'autres mots, notre projet illustre la correspondance entre les complexités de ces deux problèmes NP-complets.
         </p>
 
+        <div id="div_or_model">
+            <p class="p_acc">
+                La première étape consiste à coder par un graphe l'opérateur logique OU et d'établir une correspondance entre couleurs  et valeurs logiques.
+            </p>
+            <h3>Modèle</h3>
+            <img src="./img/or_draw.png" alt="graphe ou" class="img_acc">
+        </div>
+
+        <div id="div_ex1">
+            <h3>Exemple</h3>
+            <img src="./img/exemple1.png" alt="exemple 1 de graphe" class="img_acc">
+        <p class="p_acc">
+            Ici on montre que 1 = Vrai, 2 = Faux et 3 = Faux est solution de (1 ∨ 2 ∨ 3)
+        </p>
+        </div>
+
+        <div id="div_ex2">
+            <p class="p_acc">
+                A partir de ce composant de base on peut étudier des problèmes 3-SAT car il nous est possible de coder par un graphe toute formule sous forme normale conjonctive (CNF) dont les clauses sont de longueur 3, tel que si l'on trouve une 3-coloration propre du graphe, la formule est vraie.
+            </p>
+            <h3>Exemple</h3>
+            <img src="./img/exemple2.png" alt="exemple 2 de graphe" class="img_acc">
+            <p class="p_acc">
+                (-3 ∨ 14 ∨ 1) ∧ (-10 ∨ -17 ∨ -7) ∧ (-19 ∨ -4 ∨ -1) ∧ (4 ∨ 12 ∨ -10) ∧ (-18 ∨ 4 ∨ -17) ∧ (-20 ∨ -15 ∨ 16) ∧ (14 ∨ 7 -1) ∧ (12 ∨ -6 ∨ -17) ∧ (-10 ∨ -16 ∨ 6) ∧ (9 ∨ 15 ∨ -17) ∧ (4 ∨ -6 ∨ -11) ∧ (9 ∨ -8 ∨ 3) ∧ (-4 ∨ -6 ∨ -16 ) ∧ (-5 ∨ 19 ∨ -4 ) ∧ (14 ∨ 17 ∨ 1 ) ∧ (9 ∨ -18 ∨ -12) ∧ (-16 ∨ 17 ∨ -8 ) ∧ (-1 ∨ 11 ∨ 16 ) ∧ (7 ∨ 10 ∨ 9) ∧ (4 ∨ -2 ∨ 11 ) ∧ (-17 ∨ -20 ∨ -3 ) ∧ (-4 ∨ -11 ∨ -5 ) ∧ (-11 ∨ -7 ∨ 20) ∧ (-5 ∨ 2 ∨ -18) ∧ (16 ∨ 5 ∨ -3) ∧ (14 ∨ 7 ∨ -17) ∧ (8 ∨ 19 ∨ -1) ∧ (13 ∨ 16 ∨ -12)
+            </p>
+        </div>
+        
+        <div id="div_meth">
+            <p class="p_acc">
+                Dans un second temps il nous est possible de prendre le problème à l'inverse et de résoudre un problème de coloration de graphe à l'aide d'une formule CNF.
+            </p>
+            <h3>Méthode de transformation</h3>
+            <img src="./img/meth1.png" alt="methode 1" class="img_acc">
+            <img src="./img/meth2.png" alt="methode 2" class="img_acc">
+        </div>
+        
+        <div id="div_ex3">
+            <h3>Exemple</h3>
+            <img src="./img/exemple3.png" alt="exemple 3 de graphe" class="img_acc">
+            <p class="p_acc">
+                (V0 ∨ R0 B0) ∧ (-V0 ∨ -R0) ∧ (-V0 ∨ -B0) ∧ (-R0 ∨ -B0) ∧ (V1 ∨ R1 ∨ B1) ∧ (-V1 ∨ -R1) ∧ (-V1 ∨ -B1) ∧ (-R1 ∨ -B1) ∧ (V2 ∨ R2 ∨ B2) ∧ (-V2 ∨ -R2) ∧ (-V2 ∨ -B2) ∧ (-R2 ∨ -B2) ∧ (V3 ∨ R3 ∨ B3) ∧ (-V3 ∨ -R3) ∧ (-V3 ∨ -B3) ∧ (-R3 ∨ -B3) ∧ (V4 ∨ R4 ∨ B4) ∧ (-V4 ∨ -R4) ∧ (-V4 ∨ -B4) ∧ (-R4 ∨ -B4) ∧ (-V0 ∨ -V1) ∧ (-R0 ∨ -R1) ∧ (-B0 ∨ -B1) ∧ (-V0 ∨ -V2) ∧ (-R0 ∨ -R2) ∧ (-B0 ∨ -B2) ∧ (-V1 ∨ -V3) ∧ (-R1 ∨ -R3) ∧ (-B1 ∨ -B3) ∧ (-V1 ∨ -V2) ∧ (-R1 ∨ -R2) ∧ (-B1 ∨ -B2) ∧ (-V2 ∨ -V4) ∧ (-R2 ∨ -R4) ∧ (-B2 ∨ -B4) ∧ (-V3 ∨ -V4) ∧ (-R3 ∨ -R4) ∧ (-B3 ∨ -B4)
+            </p>
+        </div>
+
+        <p class="p_acc">
+            La dernière étape consiste à étudier les problèmes de satisfaction de contraintes (CSP) et de trouver une nouvelle approche pour les colorations des graphes.
+        </p>
+        
+        <!-- Partie programme -->
         <h2>Programme</h2>
-        <p class="p_acc">Notre programme s'utilise en console ...</p>
+        <p class="p_acc">
+            Notre programme s'utilise en console ...
+        </p>
 
+        <!-- Partie positionnement scientifique -->
         <h2>Positionnement scientifique du projet</h2>
         <p class="p_acc">
             Le domaine de la complexité algorithme a toujours suscité un engouement de la part des
@@ -70,29 +102,26 @@
             les problèmes considérés actuellement comme très difficiles pourraient être résolus par des
             algorithmes dont le temps de calcul croîtrait de manière seulement polynomiale. La résolution
             du challenge P=NP, encore ouvert, donne lieu à un prix d'un million de dollars.
-            Ce sujet va vous permettre d'aborder, de manière ludique, ce domaine de la complexité. En
-            effet, si nous arrivons à transformer toute formule booléenne (écrite sous une forme normale
-            simple) en un problème de coloration à trois couleurs, nous aurons alors prouvé que résoudre
-            le problème de coloration est aussi difficile que déterminer si la formule est vraie. Le problème
-            SAT est connu pour être la référence des problèmes difficiles (NP-complets).
+            Ce sujet permet d'aborder, de manière ludique, ce domaine de la complexité.
         </p>
 
+        <!-- Partie articles liés -->
         <h2>Articles liés</h2>
-        <ul>
-            <li><a class="petit_lien" 
+        <ul id="list_art">
+            <li><a class="little_link" 
                 href='https://fr.wikipedia.org/wiki/Problème_SAT' 
                 target="_blank">Problème SAT</a></li>
-            <li><a class="petit_lien" 
+            <li><a class="little_link" 
                 href='https://fr.wikipedia.org/wiki/Théorème_de_Cook'
                 target="_blank">Théorème de Cook</a></li>
-            <li><a class="petit_lien" 
+            <li><a class="little_link" 
                 href='https://fr.wikipedia.org/wiki/Probl%C3%A8me_NP-complet' 
                 target="_blank">Problème NP-complet</a></li>
-            <li><a class="petit_lien" 
+            <li><a class="little_link" 
                 href='https://fr.wikipedia.org/wiki/Problème_P_≟_NP' 
                 target="_blank">Problème P = NP</a></li>
         </ul>
-        
+
     </main>
 
     <footer>

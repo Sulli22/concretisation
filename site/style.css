@@ -1,3 +1,4 @@
+/*-- Variables --------------------------------------------*/
 
 :root{
     --color_1: #f8f5ea;
@@ -16,13 +17,14 @@
 
     --main_padding_w: calc(100vw/8);
     --main_padding_h: 70px;
+    --main_w: calc(100vw - 2*var(--main_padding_w));
 
     --funct_w: 380px;
 
     --heigth_logo_gp: calc(var(--footer_height)/2)
 }
 
-/*-- global -----------------------------------------------*/
+/*-- Global -----------------------------------------------*/
 
 body {
     margin: 0;
@@ -144,13 +146,13 @@ main {
     padding: var(--main_padding_h) var(--main_padding_w);
 }
 
-.petit_lien {
+.little_link {
     position: relative;
     padding-bottom: 2px;
     color: var(--color_5);
 }
 
-.petit_lien::after {
+.little_link::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -163,7 +165,7 @@ main {
     color: var(--color_5);
 }
 
-.petit_lien:hover::after {
+.little_link:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
@@ -175,6 +177,16 @@ main {
     color: var(--color_5);
     margin-bottom: 10px;
     text-align: justify;
+}
+
+.img_acc {
+    border: var(--color_3) solid 2px;
+    border-radius: 10px;
+    width: var(--main_w);
+}
+
+#list_art li{
+    padding: 5px;
 }
 
 /*-- Développement ---------------------------------------*/
@@ -209,41 +221,41 @@ main {
     padding: 2% 0;
 }
 
-.bibliotheque {
+.library {
     padding-bottom: calc(var(--main_padding_h)/3);
 }
 
-.bibliotheque .petit_lien {
+.library .little_link {
     font-weight: bold;
 }
 
-.bibliotheque ul li {
+.library ul li {
     padding: 0.5%;
 }
 
-/*-- Groupe ----------------------------------------------*/
+/*-- group ----------------------------------------------*/
 
 #p_gp {
     margin-bottom: calc(var(--main_padding_h)/2);
     font-size: 1.1em;
 }
 
-.groupe {
+.sect_gp {
     border: var(--color_3) 2px solid;
     border-radius: 10px;
     margin: calc(var(--main_padding_h)/2) 0;    
 }
 
-.groupe p {
+.sect_gp p {
     margin-left: calc(var(--main_padding_w)/8);
 }
 
-.groupe .icon_gp {
+.sect_gp .icon_gp {
     font-size: 20px;
     margin-right: 5px;
 }
 
-.groupe ul {
+.sect_gp ul {
     margin-left: calc(var(--main_padding_w)/3);
 }
 
