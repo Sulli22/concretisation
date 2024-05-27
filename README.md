@@ -9,20 +9,30 @@ The primary objective of this project is to show the equivalence between satisfi
 ### main.py
 
 #### main():
+```
 Main function that runs the program
+```
+
 
 #### main_graphColoring():
+```
 Generates and color a random graph based on user input
+```
 
 #### main_cnf2graph2color():
+```
 Generates the graph corresponding to the cnf formula
+```
 
 #### maximize():
+```
 Maximizes the plot window
 
 ### cnfToGraph.py
+```
 
-#### get_graph_from_cnf(cnf_formula): 
+#### get_graph_from_cnf(cnf_formula):
+``` 
 Returns the graph corresponding to the cnf formula
 
 Parameters
@@ -34,8 +44,10 @@ G: Networkx graph
     graph that contains variables and clauses
 pos: dict
     dict that associates nodes to their position
+```
 
 #### add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):
+```
 Adds a disjunction clause with input variables x1, x2, x3 to the graph 
 
 Parameters
@@ -49,8 +61,10 @@ x1, x2, x3 : int
     clause input variable names
 pos: dict
     dict that associates nodes to their position
+```
 
-#### get_graph_base(pos, nb_var): 
+#### get_graph_base(pos, nb_var):
+``` 
 Returns a graph that will be used to implement the clauses
 
 Parameters
@@ -62,10 +76,12 @@ pos: dict
 Returns
 G: Networkx graph
     graph that contains ``nb_vars`` 3-cliques and one more for our True, False and Neutral references
+```
 
 ### graphColoring.py
 
-#### get_list_colors_CSP(G, relabel_need) :
+#### get_list_colors_CSP(G, relabel_need):
+```
 Returns a list of colors in the order of the graph nodes, respecting the coloring rules
 
 Parameters
@@ -77,8 +93,10 @@ relabel_need: bool
 Returns
 unamed: list or bool
     list of color (str) in order of G nodes or False if no coloring
+```
 
 #### get_list_colors_CNF(G, relabel_need):
+```
 Returns a list of colors in the order of the graph nodes, respecting the coloring rules
 
 Parameters
@@ -90,8 +108,10 @@ relabel_need: bool
 Returns
 unamed: list or bool
     list of color (str) in order of G nodes or False if no coloring
+```
 
 #### get_cnf_from_graph(G):
+```
 Returns a cnf formula that is satisfiable if the graph is colorable
 
 Parameters
@@ -101,8 +121,10 @@ G: Networkx graph
 Returns
 cnf: pysat.formula.CNF
     cnf formula
+```
 
 #### get_list_colors_DSATUR(G, cnf_formula):
+```
 Returns a list of colors in the order of the graph nodes, respecting the coloring rules
     
 Parameters
@@ -114,8 +136,10 @@ colors: dict
 Returns
 unamed: list or bool
     list of color (str) in order of G nodes or False if no coloring
+```
 
 #### DSATUR(G, colors):
+```
 Iterates over all the nodes of G in "saturation order" ("DSATUR")
 
 Parameters
@@ -126,8 +150,10 @@ colors: dict
 
 Returns
 unamed: generator object
+```
 
 #### relabel_nodes(G):
+```
 Relabels the nodes of a graph with integer labels
 
 Parameters
@@ -137,6 +163,7 @@ G : Networkx graph
 Returns
 G_copy : Networkx graph
     A copy of the graph with nodes relabeled with integers
+```
 
 ## Authors
 
