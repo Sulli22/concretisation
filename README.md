@@ -1,10 +1,10 @@
-<img src="./site/img/logo.png" width="40px">
+<img src="./site/img/logo.png" width="50px">
 
 # Boolean formulas and graph coloring
 
 The primary objective of this project is to show the equivalence between satisfiability problems in propositional logic (SAT) and the graph coloring problem. In other words, our project illustrates the correspondence between the complexities of these two NP-complete problems.
 
-## Usage
+## Usage/Example
 
 Our program is interactive and can be used in console mode, simply by interpreting main.py via any python interpreter.
 
