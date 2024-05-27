@@ -4,6 +4,46 @@
 
 The primary objective of this project is to show the equivalence between satisfiability problems in propositional logic (SAT) and the graph coloring problem. In other words, our project illustrates the correspondence between the complexities of these two NP-complete problems.
 
+## Usage
+
+Choose how you want to draw :
+```
+1 - Get the graph corresponding to a CNF formula and colour it
+2 - Colour a graph without greedy algorithm
+```
+
+1.1 If you choose the first choice : 
+```
+Select an algorithm:
+1 - DSATUR
+2 - CNF
+3 - CSP
+```
+1.2 After that, you choose the CNF file :
+```
+cnf files: 
+    {nb of vars}v{nb of clauses}c.cnf
+```
+
+2.1 Else if you choose the second choice :
+```
+Select a coloring algorithm:
+1 - CNF
+2 - CSP
+```
+
+2.2 After you choose paramaters of the graph :
+```
+Enter the number of nodes: 
+Enter the number of edges:
+```
+
+## Libraries used
+
+- [Networkx](https://networkx.org/)
+- [Matplotlib.pyplot](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html)
+- [Pysat](https://pysathq.github.io/docs/html/)
+- [PyCSP](https://www.pycsp.org/)
 
 ## Documentation
 
