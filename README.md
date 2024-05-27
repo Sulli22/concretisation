@@ -32,7 +32,7 @@ Maximizes the plot window
 ### cnfToGraph.py
 
 #### get_graph_from_cnf(cnf_formula):
-<div style="text-align=center;">
+```
 Returns the graph corresponding to the cnf formula
 
 Parameters
@@ -44,7 +44,7 @@ G: Networkx graph
     graph that contains variables and clauses
 pos: dict
     dict that associates nodes to their position
-</div>
+```
 
 #### add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):
 ```
