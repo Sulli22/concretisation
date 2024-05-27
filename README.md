@@ -13,7 +13,6 @@ The primary objective of this project is to show the equivalence between satisfi
 Main function that runs the program
 ```
 
-
 #### main_graphColoring():
 ```
 Generates and color a random graph based on user input
@@ -27,9 +26,9 @@ Generates the graph corresponding to the cnf formula
 #### maximize():
 ```
 Maximizes the plot window
+```
 
 ### cnfToGraph.py
-```
 
 #### get_graph_from_cnf(cnf_formula):
 ``` 
