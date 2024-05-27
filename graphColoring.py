@@ -20,7 +20,6 @@ def relabel_nodes(G):
     --------
     G_copy : Networkx graph
         A copy of the graph with nodes relabeled with integers
-    
     """
     # Create a mapping from original node labels to new integer labels
     dict_relabel = {n: i for i, n in enumerate(G.nodes)}

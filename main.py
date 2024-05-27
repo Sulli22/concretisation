@@ -175,7 +175,7 @@ def main_graphColoring():
         plt.title("Colored Graph: 3-coloring")
         nx.draw_networkx(G, pos=pos, node_color=list_colors)
     else:
-        plt.title("Colouring not found")
+        plt.title("Coloring not found")
     # end chrono
     t2 = time.time() 
     list_duration.append(t2-t1)
@@ -197,8 +197,8 @@ def main():
     # Display the menu
     print("-"*70)
     print("Select :")
-    print("1 - Get the graph corresponding to a CNF formula and colour it")
-    print("2 - Colour a graph without greedy algorithm")
+    print("1 - Get the graph corresponding to a CNF formula and color it")
+    print("2 - Color a graph without greedy algorithm")
 
     # Get the user's choice
     choice = input("Your choice: ")
