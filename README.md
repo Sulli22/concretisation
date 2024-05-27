@@ -23,7 +23,7 @@ If the first is chosen, the user selects the coloring algorithm he or she wants 
 
 The list of CNF files is then displayed, and the user is asked to enter the desired file. The graph corresponding to the formula is then generated, the coloring method applied and the colored graph displayed (if the formula is satisfiable). 
 
-#### Exemple
+#### Example
 
 <img src="./site/img/exemple2.png" width="400px">
 
@@ -35,7 +35,7 @@ In the other case, the user chooses the non-glutton coloring algorithm he wants 
 
 Next, the user is asked to enter a number of nodes and edges, which is then followed by the generation of a graph corresponding to these characteristics, the application of the coloring method and the display of the generated graph without coloring and its colored version (if it is 3-colorable). 
 
-#### Exemple
+#### Example
 
 <img src="./site/img/exemple3.png" width="400px">
 
