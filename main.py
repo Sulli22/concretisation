@@ -13,7 +13,7 @@ from graphColoring import *
 #### Maximize the plot window
 
 def maximize():
-    """ Maximize the plot window """
+    """ Maximizes the plot window """
     backend = plt.get_backend()
     cfm = plt.get_current_fig_manager()
     if backend == "wxAgg":
@@ -29,7 +29,7 @@ def maximize():
 #### main cnf to graph
 
 def main_cnf2graph2color():
-    """ Generate the graph corresponding to the cnf formula
+    """ Generates the graph corresponding to the cnf formula
     and uses a coloring algorithm based on user input """
     # Prompt for algorithm choice
     print("-"*70)
@@ -113,7 +113,7 @@ def main_cnf2graph2color():
 #### main coloring
 
 def main_graphColoring():
-    """ Generate and color a random graph based on user input """
+    """ Generates and color a random graph based on user input """
     print("-"*70)
     # Prompt for the coloring algorithm choice
     print("Select a coloring algorithm:")

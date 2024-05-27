@@ -17,7 +17,6 @@
 
     --main_padding_w: calc(100vw/8);
     --main_padding_h: 70px;
-    --main_w: calc(100vw - 2*var(--main_padding_w));
 
     --funct_w: 380px;
 
@@ -111,8 +110,7 @@ nav {
     width: 100%;
     transform: scaleX(0);
     height: 2px;
-    bottom: 0;
-    left: 0;
+    bottom: 0; left: 0;
     background-color: var(--color_5);
     transform-origin: bottom right;
     transition: transform 0.4s ease-out;
@@ -159,7 +157,7 @@ main {
     transform: scaleX(0);
     height: 2px;
     bottom: 0; left: 0;
-    background-color: var(--color_5);
+    background-color: var(--color_3);
     transform-origin: bottom right;
     transition: transform 0.4s ease-out;
     color: var(--color_5);
@@ -227,7 +225,9 @@ main {
 #descr_meth ul {
     list-style: none;
     padding: 0 10px;
+    text-align: justify;
 }
+
 
 .img_acc {
     border: var(--color_3) solid 2px;
@@ -286,7 +286,7 @@ main {
 /*-- group ----------------------------------------------*/
 
 #p_gp {
-    margin-bottom: calc(var(--main_padding_h)/2);
+    margin: calc(var(--main_padding_h)/2);
     font-size: 1.1em;
 }
 

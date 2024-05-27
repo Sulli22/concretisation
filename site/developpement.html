@@ -33,7 +33,7 @@
     <main>
 
         <h2>Programmes</h2>
-        <div id="box_list_prog">
+        <div id="box_list_prog" lang="en">
 
             <h3>main.py</h3> <!-- main.py -->
             <div class="box_functs">
@@ -43,18 +43,17 @@
                 </div>
                 <div class="funct"> <!-- main_cnf2graph2color() -->
                     <h4>main_cnf2graph2color():</h4>
-                    <p>Generate the graph corresponding to the cnf formula and uses a coloring algorithm based on user input</p>
+                    <p>Generates the graph corresponding to the cnf formula and uses a coloring algorithm based on user input</p>
                 </div>
                 <div class="funct"> <!-- main_graphColoring() -->
                     <h4>main_graphColoring():</h4>
-                    <p>Generate and color a random graph based on user input</p>
+                    <p>Generates and color a random graph based on user input</p>
                 </div>
                 <div class="funct"> <!-- maximize() -->
                     <h4>maximize():</h4>
-                    <p>Maximize the plot window</p>
+                    <p>Maximizes the plot window</p>
                 </div>
             </div>
-
             <h3>cnfToGraph.py</h3> <!-- cnfToGraph.py -->
             <div class="box_functs">
                 <div class="funct"> <!-- get_graph_base() -->
@@ -67,14 +66,14 @@
                     <p class="tabu">dict that associates nodes to their position</p>
                     <p class="underline pr">Returns</p>
                     <p>G: Networkx graph</p>
-                    <p class="tabu">graph that contains ``nb_vars`` 3-cliques and one for our True, False and Neutral references</p>
+                    <p class="tabu">graph that contains ``nb_vars`` 3-cliques and one more for our True, False and Neutral references</p>
                 </div>
                 <div class="funct"> <!-- add_clause() -->
                     <h4>add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):</h4>
                     <p>Adds a disjunction clause with input variables x1, x2, x3 to the graph</p>
                     <p class="underline pr">Parameters</p>
                     <p>G: Networkx graph</p>
-                    <p class="tabu">graph use to implement clauses</p>
+                    <p class="tabu">graph used to implement clauses</p>
                     <p>nb_clauses: int</p>
                     <p class="tabu">total number of clauses</p>
                     <p>clause_nb: int</p>
@@ -149,7 +148,7 @@
                     <p>Returns a list of colors in the order of the graph nodes, respecting the coloring rules</p>
                     <p class="underline pr">Parameters</p>
                     <p>G: Networkx graph</p>
-                    <p class="tabu">graph taht we want to color</p>
+                    <p class="tabu">graph we want to color</p>
                     <p>relabel_need: bool</p>
                     <p class="tabu">does the G have to be copy with new labels</p>
                     <p class="underline pr">Returns</p>
@@ -161,7 +160,7 @@
                     <p>Returns a list of colors in the order of the graph nodes, respecting the coloring rules</p>
                     <p class="underline pr">Parameters</p>
                     <p>G: Networkx graph</p>
-                    <p class="tabu">graph taht we want to color</p>
+                    <p class="tabu">graph we want to color</p>
                     <p>relabel_need: bool</p>
                     <p class="tabu">does the G have to be copy with new labels</p>
                     <p class="underline pr">Returns</p>
@@ -181,7 +180,7 @@
                     <li>Graph(): Initialise un graphe vide (sans noeuds ni arêtes)</li>
                     <li>.add_edges_from(): Ajoute les arêtes (et noeuds) passés en paramètres</li>
                     <li>gnm_random_graph(): Retourne un graphe choisi uniformément au hasard dans l'ensemble de tous les graphes avec n noeuds et m arêtes</li>
-                    <li>relabel_nodes(): Retourne une copie d'un graph avec les noeuds renomés selon un dictionnaire. Utile pour manipuler des graphes dont les noms des noeuds sont des chaînes de caractères</li>
+                    <li>relabel_nodes(): Retourne une copie d'un graphe avec les noeuds renomés selon un dictionnaire. Utile pour manipuler des graphes dont les noms des noeuds sont des chaînes de caractères</li>
                     <li>random_layout(): Retourne un positionnement aléatoire des noeuds</li>
                     <li>draw_networkx(): Dessine un graphe en prenant en compte plusieurs paramètres (couleur des noeuds, nom des noeuds, couleur des arêtes, ...)</li>
                 </ul>
@@ -205,13 +204,13 @@
                     <li>CNF(): Initialise une instance CNF (vide ou à partir d'un fichier de type cnf)</li>
                     <li>Solver(): Permet de résoudre une formule cnf</li>
                     <li>.solve(): Indique si la formule est satisfiable</li>
-                    <li>.get_model(): Retorurne les valeurs satisfiants la formule</li>
+                    <li>.get_model(): Retourne les valeurs satisfiants la formule</li>
                 </ul> 
             </li> <!-- Fin pysat -->
 
             <li class="library"> <!-- Début pycsp -->
                 <a class="little_link" href="https://www.pycsp.org/" target="_blank">
-                    PyCSP</a>: Permet d'étudier les problèmes satisfaction de contraintes
+                    PyCSP</a>: Permet d'étudier les problèmes de satisfaction de contraintes CSP
                 <ul>
                     <li>VarArray(): Structure de données des variables</li>
                     <li>satisfy(): Permet de poser les contraintes sur les variables</li>

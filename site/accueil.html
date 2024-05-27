@@ -15,8 +15,7 @@
 <body>
 
     <header>
-        <a href="mailto:sullivan.driant@etud.univ-angers.fr, 
-        masian.huneau@etud.univ-angers.fr" target="_blank">Nous contacter</a>
+        <a href="mailto:sullivan.driant@etud.univ-angers.fr,masian.huneau@etud.univ-angers.fr" target="_blank">Nous contacter</a>
     </header>
 
     <nav>
@@ -57,7 +56,7 @@
         </div>
         
         <p class="p_acc">
-            A partir de ce composant de base on peut étudier des problèmes 3-SAT car il nous est possible de coder par un graphe toute formule sous forme normale conjonctive (CNF) dont les clauses sont de longueur 3, tel que si l'on trouve une 3-coloration propre du graphe, la formule est vraie. Une telle coloration peut être relativement efficacement determinée à l'aide d'un algorithme glouton type "DSATUR".
+            A partir de ce composant de base on peut étudier des problèmes 3-SAT car il nous est possible de coder par un graphe toute formule sous forme normale conjonctive (CNF) dont les clauses sont de longueur 3, tel que si l'on trouve une 3-coloration propre du graphe, la formule est vraie. Une telle coloration peut être determinée de façon relativement efficace à l'aide d'un algorithme glouton type "DSATUR".
         </p>
         <div class="div_img">
             <h3>Exemple</h3>
@@ -72,14 +71,14 @@
             <img src="./img/meth.png" alt="methode" class="img_acc">
             <div id="descr_meth">
                 <ul>
-                    <li>Bi: le sommet i est bleu</li>
-                    <li>Ri: le sommet i est rouge</li>
-                    <li>Vi: le sommet i est vert</li>
+                    <li><span style="color: blue;">B<sub>i</sub></span>: le sommet i est <span style="color: blue;">bleu</span></li>
+                    <li><span style="color: red;">R<sub>i</sub></span>: le sommet i est <span style="color: red;">rouge</span></li>
+                    <li><span style="color: green;">V<sub>i</sub></span>: le sommet i est <span style="color: green;">vert</span></li>
                 </ul>
                 <ul>
-                    <li>φ1  : « Chaque nœud a au moins une couleur »</li>
-                    <li>φ2  : « Chaque nœud a au plus une couleur »</li>
-                    <li>φ3  : « Deux nœuds voisins n'ont pas la même couleur »</li>
+                    <li>φ<sub>1</sub> : « Chaque nœud a au moins une couleur »</li>
+                    <li>φ<sub>2</sub> : « Chaque nœud a au plus une couleur »</li>
+                    <li>φ<sub>3</sub> : « Deux nœuds voisins n'ont pas la même couleur »</li>
                 </ul>
             </div>
         </div>
@@ -92,16 +91,16 @@
         </div>
 
         <p class="p_acc">
-            La dernière étape consiste à étudier les problèmes de satisfaction de contraintes (CSP) et de trouver une nouvelle approche pour les colorations des graphes. En réalité, assez logiquement on en vient à l'idée qu'il suffit de poser une liste de variable telle que chacune représente un noeud, peut prendre trois valeurs et doit être différente de celle qui représente les noeuds voisins
+            La dernière étape consiste à étudier les problèmes de satisfaction de contraintes (CSP) et de trouver une nouvelle approche pour les colorations de graphes. Il suffit de définir une liste de variables, chacune représentant un noeud, pouvant prendre trois valeurs et devant être différente de celles des noeuds voisins. 
         </p>
         
         <!-- Partie programme -->
         <h2>Programme</h2>
         <p class="p_acc">
-            Notre programme est interactif et s'utilise en console. En effet, via une mise en forme rudimentaire on propose divers choix à l'utilisateur, le premier de ceux-ci oppose « obtenir le graphe correspondant à une formule cnf et tenter de le colorier » et « colorier un graphe sans algorithme glouton ». 
+            Notre programme est interactif et s'utilise en console. En effet, via une mise en forme rudimentaire on propose divers choix à l'utilisateur, le premier de ceux-ci oppose « obtenir le graphe correspondant à une formule CNF et tenter de le colorier » et « colorier un graphe sans algorithme glouton ». 
         </p>
         <p class="p_acc">
-            Dans le cas où le premier est choisi, l'utilisateur choisi l'algorithme de coloration qu'il souhaite : « DASTUR » (algorithme glouton), « CNF » (cf. méthode de transformation) ou « CSP » (méthode par satisfaction de contraintes). Ensuite on affiche la liste des fichiers cnf et on demande de saisir celui voulu, s'enchaine alors la génération du graphe correspondant à la formule, l'application de la méthode de coloration et l'affichage du graphe colorié (si la formule est satisfaisable).
+            Dans le cas où le premier est choisi, l'utilisateur choisi l'algorithme de coloration qu'il souhaite : « DSATUR » (algorithme glouton), « CNF » (cf. méthode de transformation) ou « CSP » (méthode par satisfaction de contraintes). Ensuite on affiche la liste des fichiers CNF et on demande de saisir celui voulu, s'enchaine alors la génération du graphe correspondant à la formule, l'application de la méthode de coloration et l'affichage du graphe colorié (si la formule est satisfaisable).
         </p>
         <p class="p_acc">
             Dans l'autre cas, l'utilisateur choisi l'algorithme de coloration non-glouton qu'il souhaite : « CNF » (cf. méthode de transformation) ou « CSP » (méthode par satisfaction de contraintes). Ensuite on lui demande de saisir un nombre de nœuds et d'arêtes, s'enchaine alors la génération d'un graphe correspondant à ces caractéristiques, l'application de la méthode de coloration et l'affichage du graphe généré sans coloration et sa version coloriée (s'il est 3-coloriable).

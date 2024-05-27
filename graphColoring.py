@@ -118,7 +118,7 @@ def get_cnf_from_graph(G):
     Parameters
     -----------
     G: Networkx graph
-        graph taht we want to color
+        graph we want to color
         
     Returns
     --------
@@ -152,7 +152,7 @@ def get_list_colors_CNF(G, relabel_need: bool) -> list:
     Parameters
     -----------
     G: Networkx graph
-        graph taht we want to color
+        graph we want to color
     relabel_need: bool
         does the G have to be copy with new labels
         
@@ -189,7 +189,7 @@ def get_list_colors_CSP(G, relabel_need: bool) -> list:
     Parameters
     -----------
     G: Networkx graph
-        graph taht we want to color
+        graph that we want to color
     relabel_need: bool
         does the G have to be copy with new labels
         

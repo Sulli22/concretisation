@@ -17,7 +17,7 @@ def get_graph_base(pos: dict, nb_var: int):
     Returns
     --------
     G: Networkx graph
-        graph that contains ``nb_vars`` 3-cliques and one for our 
+        graph that contains ``nb_vars`` 3-cliques and one more for our 
         True, False and Neutral references
     """
     # Create an empty graph
@@ -47,7 +47,7 @@ def add_clause(G, pos: dict, nb_clauses: int, \
     Parameters
     -----------
     G: Networkx graph
-        graph use to implement clauses
+        graph used to implement clauses
     nb_clauses: int
         total number of clauses
     clause_nb: int
