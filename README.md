@@ -1,4 +1,4 @@
-![Logo](./site/img/logo.png)
+![Logo](./site/img/logo.ico)
 # Boolean formulas and graph coloring
 
 The primary objective of this project is to show the equivalence between satisfiability problems in propositional logic (SAT) and the graph coloring problem. In other words, our project illustrates the correspondence between the complexities of these two NP-complete problems.
