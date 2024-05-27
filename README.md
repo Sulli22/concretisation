@@ -9,9 +9,7 @@ The primary objective of this project is to show the equivalence between satisfi
 ### main.py
 
 #### main():
-```
-Main function that runs the program
-```
+> Main function that runs the program
 
 #### main_graphColoring():
 ```
