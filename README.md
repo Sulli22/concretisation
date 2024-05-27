@@ -32,7 +32,7 @@ Maximizes the plot window
 ### cnfToGraph.py
 
 #### get_graph_from_cnf(cnf_formula):
-<div style="background-color='grey';">
+<div style="background-color='ffffff';">
 Returns the graph corresponding to the cnf formula
 
 Parameters
