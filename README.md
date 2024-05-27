@@ -25,7 +25,7 @@ The list of CNF files is then displayed, and the user is asked to enter the desi
 
 #### Example
 
-<img src="./site/img/exemple2.png" width="400px">
+<img src="./site/img/exemple2.png" width="100%">
 
 In the other case, the user chooses the non-glutton coloring algorithm he wants :
 ```
@@ -37,9 +37,9 @@ Next, the user is asked to enter a number of nodes and edges, which is then foll
 
 #### Example
 
-<img src="./site/img/exemple3.png" width="400px">
+<img src="./site/img/exemple3.png" width="100%">
 
-Nous pouvons aussi préciser que lors de ces diverses exécutions on affiche leur temps approximatif d'exécution ainsi que le temps d'exécution total à la fin de celles-ci. 
+We can also specify that during these various executions we display their approximate execution time as well as the total execution time at the end of them.
 
 ## Libraries used
 
