@@ -5,15 +5,6 @@ The primary objective of this project is to show the equivalence between satisfi
 
 
 ## Documentation
-<style>
-div {
-    background-color: #f0f0f0; /* Couleur de fond gris clair */
-    border: 1px solid #ccc; /* Bordure grise */
-    border-radius: 5px; /* Bordure arrondie */
-    padding: 10px; /* Espacement interne */
-    font-family: monospace; /* Police de caractère monospace */
-    white-space: pre-wrap; /* Maintenir les retours à la ligne */
-}
 </style>
 
 ### main.py
@@ -41,7 +32,7 @@ Maximizes the plot window
 ### cnfToGraph.py
 
 #### get_graph_from_cnf(cnf_formula):
-<div>
+`
 Returns the graph corresponding to the cnf formula
 
 Parameters
@@ -53,7 +44,7 @@ G: Networkx graph
     graph that contains variables and clauses
 pos: dict
     dict that associates nodes to their position
-</div>
+`
 
 #### add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):
 ```
