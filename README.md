@@ -38,6 +38,7 @@ Next, the user is asked to enter a number of nodes and edges, which is then foll
 #### Example
 
 <img src="./site/img/exemple3.png" width="100%">
+(V0 ∨ R0 ∨ B0) ∧ (-V0 ∨ -R0) ∧ (-V0 ∨ -B0) ∧ (-R0 ∨ -B0) ∧ (V1 ∨ R1 ∨ B1) ∧ (-V1 ∨ -R1) ∧ (-V1 ∨ -B1) ∧ (-R1 ∨ -B1) ∧ (V2 ∨ R2 ∨ B2) ∧ (-V2 ∨ -R2) ∧ (-V2 ∨ -B2) ∧ (-R2 ∨ -B2) ∧ (V3 ∨ R3 ∨ B3) ∧ (-V3 ∨ -R3) ∧ (-V3 ∨ -B3) ∧ (-R3 ∨ -B3) ∧ (V4 ∨ R4 ∨ B4) ∧ (-V4 ∨ -R4) ∧ (-V4 ∨ -B4) ∧ (-R4 ∨ -B4) ∧ (-V0 ∨ -V1) ∧ (-R0 ∨ -R1) ∧ (-B0 ∨ -B1) ∧ (-V0 ∨ -V2) ∧ (-R0 ∨ -R2) ∧ (-B0 ∨ -B2) ∧ (-V1 ∨ -V3) ∧ (-R1 ∨ -R3) ∧ (-B1 ∨ -B3) ∧ (-V1 ∨ -V2) ∧ (-R1 ∨ -R2) ∧ (-B1 ∨ -B2) ∧ (-V2 ∨ -V4) ∧ (-R2 ∨ -R4) ∧ (-B2 ∨ -B4) ∧ (-V3 ∨ -V4) ∧ (-R3 ∨ -R4) ∧ (-B3 ∨ -B4) 
 
 We can also specify that during these various executions we display their approximate execution time as well as the total execution time at the end of them.
 
