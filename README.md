@@ -1,11 +1,11 @@
-<img src="./site/img/logo.png" width="20px">
+<img src="./site/img/logo.png" width="40px">
+
 # Boolean formulas and graph coloring
 
 The primary objective of this project is to show the equivalence between satisfiability problems in propositional logic (SAT) and the graph coloring problem. In other words, our project illustrates the correspondence between the complexities of these two NP-complete problems.
 
 
 ## Documentation
-</style>
 
 ### main.py
 
@@ -32,7 +32,7 @@ Maximizes the plot window
 ### cnfToGraph.py
 
 #### get_graph_from_cnf(cnf_formula):
-```
+<div style="background-color='grey';">
 Returns the graph corresponding to the cnf formula
 
 Parameters
@@ -44,7 +44,7 @@ G: Networkx graph
     graph that contains variables and clauses
 pos: dict
     dict that associates nodes to their position
-```
+</div>
 
 #### add_clause(G, pos, nb_clauses, clause_nb, x1, x2, x3):
 ```
