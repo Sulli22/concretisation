@@ -116,7 +116,7 @@ def main_graphColoring():
     """ Generates and color a random graph based on user input """
     print("-"*70)
     # Prompt for the coloring algorithm choice
-    print("Select a coloring algorithm:")
+    print("Select a coloring method:")
     print("1 - CNF")
     print("2 - CSP")
     rep = input("Your choice: ")
