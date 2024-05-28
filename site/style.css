@@ -271,6 +271,12 @@ main {
     padding: 2% 0;
 }
 
+#div_opti {
+    text-align: justify;
+    font-size: 101%;
+    margin-bottom: 40px;
+}
+
 .library {
     padding-bottom: calc(var(--main_padding_h)/3);
 }
@@ -286,8 +292,9 @@ main {
 /*-- group ----------------------------------------------*/
 
 #p_gp {
-    margin: calc(var(--main_padding_h)/2);
+    margin: calc(var(--main_padding_h)/2) 0;
     font-size: 1.1em;
+    text-align: justify;
 }
 
 .sect_gp {
@@ -307,6 +314,10 @@ main {
 
 .sect_gp ul {
     margin-left: calc(var(--main_padding_w)/3);
+}
+
+.sect_gp li {
+    padding: 3px 0;
 }
 
 #box_logos {

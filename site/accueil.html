@@ -58,6 +58,9 @@
         <p class="p_acc">
             A partir de ce composant de base on peut étudier des problèmes 3-SAT car il nous est possible de coder par un graphe toute formule sous forme normale conjonctive (CNF) dont les clauses sont de longueur 3, tel que si l'on trouve une 3-coloration propre du graphe, la formule est vraie. Une telle coloration peut être determinée de façon relativement efficace à l'aide d'un algorithme glouton type "DSATUR".
         </p>
+        <p class="p_acc">
+            On peut préciser les caractéristiques d'une telle transformation : pour une formule CNF à n variables et m clauses on génère un graphe à (3 + 2*n + 6*m) nœuds et (3*(n+1) + 12*m) arêtes.
+        </p>
         <div class="div_img">
             <h3>Exemple</h3>
             <img src="./img/exemple2.png" alt="exemple 2 de graphe" class="img_acc">
@@ -91,7 +94,7 @@
         </div>
 
         <p class="p_acc">
-            La dernière étape consiste à étudier les problèmes de satisfaction de contraintes (CSP) et de trouver une nouvelle approche pour les colorations de graphes. Il suffit de définir une liste de variables, chacune représentant un noeud, pouvant prendre trois valeurs et devant être différente de celles des noeuds voisins. 
+            La dernière étape consiste à étudier les problèmes de satisfaction de contraintes (CSP) et de trouver une nouvelle approche pour les colorations de graphes. Il suffit de définir une liste de variables, chacune représentant un nœud, pouvant prendre trois valeurs et devant être différente de celles des nœuds voisins. 
         </p>
         
         <!-- Partie programme -->

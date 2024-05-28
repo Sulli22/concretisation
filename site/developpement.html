@@ -54,6 +54,7 @@
                     <p>Maximizes the plot window</p>
                 </div>
             </div>
+            
             <h3>cnfToGraph.py</h3> <!-- cnfToGraph.py -->
             <div class="box_functs">
                 <div class="funct"> <!-- get_graph_base() -->
@@ -170,6 +171,25 @@
             </div>
         </div>
 
+        <h2>Optimisation et limites</h2>
+        <div id="div_opti">
+            <p>
+                Pour rappel, le but de ce projet est de montrer l'équivalence entre les problèmes SAT et le problème de coloration de graphe. Par conséquent, le challenge réside dans la capacité de notre programme à trouver la coloration du graphe dérivé d'une formule CNF, ainsi qu'à montrer qu'il existe une solution aux problèmes SAT et CSP issus d'un graphe à colorier.
+            </p>
+            <p>
+                Concernant la résolution des problèmes logiques correspondant à un graphe, la méthode de transformation (cf. <a href="accueil.html" class="little_link">Projet</a>) est primordiale, et l'efficacité de la résolution ne dépend que des solveurs utilisés (l'optimisation de ceux-ci n'est donc pas à notre portée).
+            </p>
+            <p>
+                En revanche, pour un graphe dérivé d'une formule booléenne, hormis la génération du graphe en lui-même (cf. <a href="accueil.html" class="little_link">Projet</a>), si l'on veut montrer qu'il existe une coloration sans utiliser les méthodes évoquées ci-dessus, il faut se concentrer sur l'algorithme de coloration. Nous avons donc reprogrammé un algorithme glouton appelé « DSATUR » (Degree of SATuration), et pour l'optimiser, nous nous sommes appuyés sur le solver de PySAT afin de fixer certaines couleurs et ainsi trouver plus facilement une coloration.
+            </p>
+            <p>
+                Il est important de rappeler que nous avons également pris en compte la possibilité qu'une formule soit non satisfiable ou qu'un graphe soit non 3-coloriable, afin de pouvoir partager cette information avec l'utilisateur.
+            </p>
+            <p>
+                Pour conclure, après divers tests, nous devons mettre en évidence les limites de notre programme. En effet, notre programme est capable de gérer tous les problèmes de taille petite à moyenne, mais il est moins efficace pour les problèmes de grande taille. Il arrive même que, pour les problèmes de très grande taille, notre programme ne réussisse pas à trouver de solution. Malgré tout, il est à noter que pour la coloration de graphes de grande taille, l'utilisation d'un algorithme glouton est plus efficace que la transformation en problème logique.
+            </p>
+        </div>
+
         <h2>Bibliothèques</h2>
         <ul> <!-- Début de la liste des bibliothèques -->
 
@@ -177,12 +197,12 @@
                 <a class="little_link" href="https://networkx.org/" target="_blank">
                 NetworkX</a>: Permet de créer, manipuler et étudier des graphes 
                 <ul> 
-                    <li>Graph(): Initialise un graphe vide (sans noeuds ni arêtes)</li>
-                    <li>.add_edges_from(): Ajoute les arêtes (et noeuds) passés en paramètres</li>
-                    <li>gnm_random_graph(): Retourne un graphe choisi uniformément au hasard dans l'ensemble de tous les graphes avec n noeuds et m arêtes</li>
-                    <li>relabel_nodes(): Retourne une copie d'un graphe avec les noeuds renomés selon un dictionnaire. Utile pour manipuler des graphes dont les noms des noeuds sont des chaînes de caractères</li>
-                    <li>random_layout(): Retourne un positionnement aléatoire des noeuds</li>
-                    <li>draw_networkx(): Dessine un graphe en prenant en compte plusieurs paramètres (couleur des noeuds, nom des noeuds, couleur des arêtes, ...)</li>
+                    <li>Graph(): Initialise un graphe vide (sans nœuds ni arêtes)</li>
+                    <li>.add_edges_from(): Ajoute les arêtes (et nœuds) passés en paramètres</li>
+                    <li>gnm_random_graph(): Retourne un graphe choisi uniformément au hasard dans l'ensemble de tous les graphes avec n nœuds et m arêtes</li>
+                    <li>relabel_nodes(): Retourne une copie d'un graphe avec les nœuds renomés selon un dictionnaire. Utile pour manipuler des graphes dont les noms des nœuds sont des chaînes de caractères</li>
+                    <li>random_layout(): Retourne un positionnement aléatoire des nœuds</li>
+                    <li>draw_networkx(): Dessine un graphe en prenant en compte plusieurs paramètres (couleur des nœuds, nom des nœuds, couleur des arêtes, ...)</li>
                 </ul>
             </li> <!-- Fin networkx -->
             
@@ -221,7 +241,6 @@
 
         </ul> <!-- Fin de la liste des bibliothèques -->
 
-        <h2>Limites</h2>
     </main>
 
     <footer>
