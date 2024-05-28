@@ -27,7 +27,7 @@ The list of CNF files is then displayed, and the user is asked to enter the desi
 
 <img src="./site/img/exemple2.png" width="100%">
 
-In the other case, the user chooses the non-glutton coloring algorithm he wants :
+In the other case, the user chooses the non-glutton coloring method he wants :
 ```
 1 - CNF
 2 - CSP
