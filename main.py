@@ -127,12 +127,12 @@ def main_graphColoring():
 
     # Prompt for the number of nodes and edges
     nb_nodes = None; nb_edges = None
-    while nb_nodes is None:
+    while nb_nodes is None or nb_nodes < 0:
         try:
             nb_nodes = int(input("Enter the number of nodes: "))
         except:
             print("Unvalid number,")
-    while nb_edges is None:
+    while nb_edges is None or nb_edges < 0:
         try:
             nb_edges = int(input("Enter the number of edges: "))
         except:
